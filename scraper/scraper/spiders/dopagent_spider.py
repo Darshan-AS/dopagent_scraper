@@ -25,7 +25,8 @@ class DopagentSpider(scrapy.Spider):
         super(DopagentSpider, self).__init__(*args, **kwargs)
         self.accounts_count = None
         self.account_counter = 0
-    
+        self.page_number = 1
+
     def parse(self, response):
         yield scrapy.FormRequest.from_response(
             response,
@@ -58,24 +59,25 @@ class DopagentSpider(scrapy.Spider):
 
     def after_agent_enquire_navigation(self, response):
         if authentication_failed(response):
-            self.logger.error( 
+            self.logger.error(
                 'Agent Enquiry & Update Screen navigation failed')
             return
 
         if self.accounts_count is None:
             x = response.css('h2 span span::text').get()
-            self.accounts_count = list(map(int, filter(lambda s: s.isdigit(), x.split(' '))))[-1]
+            self.accounts_count = list(
+                map(int, filter(lambda s: s.isdigit(), x.split(' '))))[-1]
             self.account_counter = self.account_counter if self.account_counter else 1
-        else:
-            self.account_counter += 1
-        
+
+
         if self.account_counter > self.accounts_count:
             return
-        elif self.account_counter % (10 + 1) == 0:
+        elif self.page_number != self.account_counter // 10:
+            self.page_number = self.account_counter // 10
             yield scrapy.FormRequest.from_response(
                 response,
                 formdata={
-                    'CustomAgentRDAccountFG.AgentRDActSummaryAllListing_REQUESTED_PAGE_NUMBER': str(self.account_counter // 10)
+                    'CustomAgentRDAccountFG.AgentRDActSummaryAllListing_REQUESTED_PAGE_NUMBER': str(self.page_number)
                 },
                 clickdata={
                     'id': 'Action.AgentRDActSummaryAllListing.GOTO_PAGE__'},
@@ -84,11 +86,12 @@ class DopagentSpider(scrapy.Spider):
         else:
             account_details = response.css(
                 'table#SummaryList tr td a::attr(href)').getall()
-            
+
             if (a := account_details[(self.account_counter - 1) % 10]) is not None:
                 yield response.follow(a, callback=self.after_account_details_navigation)
                 print(f'Scraped account {self.account_counter}')
 
+            
 
     def after_account_details_navigation(self, response):
         if authentication_failed(response):
@@ -119,6 +122,7 @@ class DopagentSpider(scrapy.Spider):
                                get_css('PENDING_INSTALLMENT'))
         yield account_loader.load_item()
 
+        self.account_counter += 1
         yield scrapy.FormRequest.from_response(
             response,
             clickdata={'name': 'Action.BACK_TO_ACCOUNT_LIST'},
