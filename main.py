@@ -1,7 +1,10 @@
-import scrapy
 from scrapy.crawler import CrawlerProcess
-from scraper.scraper.spiders.dopagent_spider import DopagentSpider
+from scraper.scraper.spiders import DopagentSpider
 
-process = CrawlerProcess()
-process.crawl(DopagentSpider)
-process.start()
+def main():
+    process = CrawlerProcess()
+    process.crawl(DopagentSpider)
+    process.start()
+
+if __name__ == "__main__":
+    main()
