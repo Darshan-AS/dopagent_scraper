@@ -1,4 +1,4 @@
-from itemloaders.processors import Compose, TakeFirst, MapCompose, Join
+from itemloaders.processors import Compose, Join, MapCompose, TakeFirst
 from scrapy.loader import ItemLoader
 
 

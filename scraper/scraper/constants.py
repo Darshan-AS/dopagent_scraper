@@ -3,11 +3,13 @@ from enum import Enum
 DOPAGENT_BASE_URL = 'https://dopagent.indiapost.gov.in'
 ACCOUNTS_PER_PAGE = 10
 
+
 class LoginPage:
     AGENT_ID_INPUT = 'AuthenticationFG.USER_PRINCIPAL'
     PASSWORD_INPUT = 'AuthenticationFG.ACCESS_CODE'
     LOG_IN_BUTTON = 'Action.VALIDATE_RM_PLUS_CREDENTIALS_CATCHA_DISABLED'
     CLEAR_VALUES_BUTTON = 'Action.CLEAR_VALUES'
+
 
 class MenuPage:
     DASHBOARD_BUTTON = 'HREF_Dashboard'
@@ -16,6 +18,7 @@ class MenuPage:
 
     AGENT_ENQIRE_AND_UPDATE_SCREEN_LINK = 'HREF_Agent Enquire & Update Screen'
     REPORTS_LINK = 'HREF_Reports'
+
 
 class AccountsListPage:
     ACCOUNT_NUMBER_SEARCH_BOX = 'CustomAgentRDAccountFG.ACCOUNT_NUMBER_FOR_SEARCH'
@@ -29,6 +32,7 @@ class AccountsListPage:
 
     SAVE_ACCOUNTS_BUTTON = 'Action.SAVE_ACCOUNTS'
     VIEW_SAVED_INSTALLMENTS_BUTTON = 'Action.VIEW_SAVED_INSTALLMENTS'
+
 
 class AccountDetailPage:
     ACCOUNT_NUMBER_ID = 'HREF_CustomAgentRDAccountFG.ACCOUNT_NUMBER'

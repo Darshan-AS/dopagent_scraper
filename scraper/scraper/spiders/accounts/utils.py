@@ -1,7 +1,7 @@
 import scraper.scraper.constants as CONST
-from scraper.scraper.loaders import AccountLoader
-from scraper.scraper.items import AccountItem
 import scraper.scraper.spiders.accounts.selectors as SELECT
+from scraper.scraper.items import AccountItem
+from scraper.scraper.loaders import AccountLoader
 
 
 def account_counter_to_page_index(account_counter, accounts_per_page=CONST.ACCOUNTS_PER_PAGE):

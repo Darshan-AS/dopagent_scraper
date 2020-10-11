@@ -1,4 +1,5 @@
-from scrapy.item import Item, Field
+from scrapy.item import Field, Item
+
 
 class AccountItem(Item):
     account_no = Field()
@@ -13,4 +14,3 @@ class AccountItem(Item):
     default_fee = Field()
     default_installments = Field()
     pending_installments = Field()
-
