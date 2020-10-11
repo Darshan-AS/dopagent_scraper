@@ -1,1 +1,1 @@
-from .dopagent_spider import *
+from .accounts import *

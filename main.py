@@ -1,10 +1,13 @@
 from scrapy.crawler import CrawlerProcess
-from scraper.scraper.spiders import DopagentSpider
+from scraper.scraper.spiders import AccountsSpider
 
-def main():
+
+def main(agent_id, password):
     process = CrawlerProcess()
-    process.crawl(DopagentSpider)
+    process.crawl(AccountsSpider, agent_id, password)
     process.start()
 
 if __name__ == "__main__":
-    main()
+    agent_id = ''
+    password = ''
+    main(agent_id, password)
