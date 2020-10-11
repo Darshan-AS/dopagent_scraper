@@ -1,15 +1,10 @@
 import scraper.scraper.constants as CONST
 import scraper.scraper.spiders.accounts.selectors as SELECT
 import scraper.scraper.spiders.accounts.utils as utils
+from scraper.scraper.utils import validate_response
 from scrapy import FormRequest, Spider
 from scrapy.shell import inspect_response
 from scrapy.utils.response import open_in_browser
-
-
-def authentication_failed(response):
-    # TODO: Check the contents of the response and return True if it failed
-    # or False if it succeeded.
-    pass
 
 
 class AccountsSpider(Spider):
@@ -40,31 +35,21 @@ class AccountsSpider(Spider):
             callback=self.after_login
         )
 
+    @validate_response
     def after_login(self, response):
-        if authentication_failed(response):
-            self.logger.error('Login failed')
-            return
-
         accounts_link = response.css(SELECT.ACCOUNTS_BUTTON__HREF).get()
         if accounts_link is not None:
             yield response.follow(accounts_link, callback=self.after_accounts_navigation)
 
+    @validate_response
     def after_accounts_navigation(self, response):
-        if authentication_failed(response):
-            self.logger.error('Accounts navigation failed')
-            return
-
         agent_enquire_link = response.css(
             SELECT.AGENT_ENQUIRE_AND_UPDATE_SCREEN__HREF).get()
         if agent_enquire_link is not None:
             yield response.follow(agent_enquire_link, callback=self.after_agent_enquire_navigation)
 
+    @validate_response
     def after_agent_enquire_navigation(self, response):
-        if authentication_failed(response):
-            self.logger.error(
-                'Agent Enquiry & Update Screen navigation failed')
-            return
-
         if self.total_accounts is None:
             self.total_accounts = utils.fetch_total_accounts(response)
             self.account_counter = self.account_counter if self.account_counter else 1
@@ -82,11 +67,8 @@ class AccountsSpider(Spider):
                 yield response.follow(account_link, callback=self.after_account_details_navigation)
                 print(f'Scraped account {self.account_counter}')
 
+    @validate_response
     def after_account_details_navigation(self, response):
-        if authentication_failed(response):
-            self.logger.error('Account Details navigation failed')
-            return
-
         yield utils.extract_account_item(response)
 
         self.account_counter += 1
@@ -96,7 +78,7 @@ class AccountsSpider(Spider):
             callback=self.after_agent_enquire_navigation
         )
 
-    def goto_page_request(self, response, page_number, callback=self.after_agent_enquire_navigation):
+    def goto_page_request(self, response, page_number, callback):
         return FormRequest.from_response(
             response,
             formdata={
