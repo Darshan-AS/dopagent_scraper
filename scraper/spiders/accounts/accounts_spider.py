@@ -11,12 +11,7 @@ class AccountsSpider(Spider):
     name = 'accounts'
     start_urls = [CONST.DOPAGENT_BASE_URL]
 
-    custom_settings = {
-        'ITEM_PIPELINES': {'scraper.pipelines.AccountPipeline': 300},
-        'LOG_ENABLED': True
-    }
-
-    def __init__(self, agent_id, password, account_counter=0, *args, **kwargs):
+    def __init__(self, agent_id='', password='', account_counter=0, *args, **kwargs):
         super(AccountsSpider, self).__init__(*args, **kwargs)
 
         self.total_accounts = None
