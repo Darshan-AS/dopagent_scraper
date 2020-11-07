@@ -1,5 +1,5 @@
-.vscode
-.idea
 .history
-*__pycache__
-venv
+.vscode
+logs
+__pycache__
+.DS_Store

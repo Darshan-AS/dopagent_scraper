@@ -2,7 +2,7 @@ from functools import wraps
 
 from scrapy import Spider
 
-import scraper.scraper.constants as CONST
+import scraper.constants as CONST
 
 
 def validate_response(func):

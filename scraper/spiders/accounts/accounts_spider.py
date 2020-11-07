@@ -1,7 +1,7 @@
-import scraper.scraper.constants as CONST
-import scraper.scraper.spiders.accounts.selectors as SELECT
-import scraper.scraper.spiders.accounts.utils as utils
-from scraper.scraper.utils import validate_response
+import scraper.constants as CONST
+import scraper.spiders.accounts.selectors as SELECT
+import scraper.spiders.accounts.utils as utils
+from scraper.utils import validate_response
 from scrapy import FormRequest, Spider
 from scrapy.shell import inspect_response
 from scrapy.utils.response import open_in_browser
@@ -12,7 +12,7 @@ class AccountsSpider(Spider):
     start_urls = [CONST.DOPAGENT_BASE_URL]
 
     custom_settings = {
-        'ITEM_PIPELINES': {'scraper.scraper.pipelines.AccountPipeline': 300},
+        'ITEM_PIPELINES': {'scraper.pipelines.AccountPipeline': 300},
         'LOG_ENABLED': True
     }
 

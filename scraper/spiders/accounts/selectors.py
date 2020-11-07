@@ -1,4 +1,4 @@
-import scraper.scraper.constants as CONST
+import scraper.constants as CONST
 
 ACCOUNTS_BUTTON__HREF = f'a[name="{CONST.MenuPage.ACCOUNTS_BUTTON}"]::attr(href)'
 AGENT_ENQUIRE_AND_UPDATE_SCREEN__HREF = f'a[name="{CONST.MenuPage.AGENT_ENQIRE_AND_UPDATE_SCREEN_LINK}"]::attr(href)'
