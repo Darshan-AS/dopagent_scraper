@@ -8,7 +8,7 @@ pep8 = "*"
 
 [packages]
 scrapy = "*"
-scrapyrt = "*"
+scrapyrt = {editable = true, ref = "pass-arguments-to-spider", git = "https://github.com/scrapinghub/scrapyrt.git"}
 
 [requires]
 python_version = "3.8"
