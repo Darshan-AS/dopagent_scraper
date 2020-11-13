@@ -153,11 +153,11 @@
         },
         "itemloaders": {
             "hashes": [
-                "sha256:a7803a1c27177d73329a0cc83a9c10de50fa4d4f37970e0194e8ae24b1fb7066",
-                "sha256:d8f92a93d0cc9f5a7f72f01562539cb7030f7741758e764a0a8716f9b0210f7a"
+                "sha256:1277cd8ca3e4c02dcdfbc1bcae9134ad89acfa6041bd15b4561c6290203a0c96",
+                "sha256:4cb46a0f8915e910c770242ae3b60b1149913ed37162804f1e40e8535d6ec497"
             ],
-            "markers": "python_version >= '3.5'",
-            "version": "==1.0.3"
+            "markers": "python_version >= '3.6'",
+            "version": "==1.0.4"
         },
         "jmespath": {
             "hashes": [
@@ -308,6 +308,10 @@
         "scrapyrt": {
             "editable": true,
             "git": "https://github.com/scrapinghub/scrapyrt.git",
+            "hashes": [
+                "sha256:4ad45c6f35f2ccaab4ef8d0c8f0a54bfe598f4c4162d0b89af8255703a2d7573",
+                "sha256:5fb05b27bda1b6b270aac40bc827ed31da5b17a92864069cbcda6dc489ceb90b"
+            ],
             "ref": "983d749254a5fed272444ba34535013d0b234571"
         },
         "service-identity": {
