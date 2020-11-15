@@ -1,11 +1,13 @@
-from enum import Enum
-
-DOPAGENT_BASE_URL = 'https://dopagent.indiapost.gov.in'
+DOPAGENT_HOST = 'https://dopagent.indiapost.gov.in/'
+DOPAGENT_BASE_URL = DOPAGENT_HOST + "corp/"
 ACCOUNTS_PER_PAGE = 10
 SUCCESS_RESPONSE_STATUS = 200
+
+
 class Headers:
     EXPIRED_KEY = b'Expires'
     NOT_EXPIRED_VALUE = b'0'
+
 
 class LoginPage:
     AGENT_ID_INPUT = 'AuthenticationFG.USER_PRINCIPAL'

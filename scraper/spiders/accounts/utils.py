@@ -1,3 +1,5 @@
+from math import ceil
+
 import scraper.constants as CONST
 import scraper.spiders.accounts.selectors as SELECT
 from scraper.items import AccountItem
@@ -5,7 +7,7 @@ from scraper.loaders import AccountLoader
 
 
 def account_counter_to_page_index(account_counter, accounts_per_page=CONST.ACCOUNTS_PER_PAGE):
-    return account_counter // accounts_per_page, (account_counter - 1) % accounts_per_page
+    return ceil(account_counter / accounts_per_page), (account_counter - 1) % accounts_per_page
 
 
 def fetch_total_accounts(response):
