@@ -30,6 +30,8 @@ class AccountsListPage:
     FETCH_ACCOUNT_BUTTON = 'Action.FETCH_INPUT_ACCOUNT'
     CLEAR_VALUES_BUTTON = 'Action.CLEAR_ACCOUNTS'
 
+    ACCOUNTS_LIST_TABLE_ID = 'SummaryList'
+    CHECKBOX_PREFIX = "CustomAgentRDAccountFG.SELECT_INDEX_ARRAY"
     GOTO_PREV_PAGE_BUTTON = 'Action.AgentRDActSummaryAllListing.GOTO_PREV__'
     GOTO_NEXT_PAGE_BUTTON = 'Action.AgentRDActSummaryAllListing.GOTO_NEXT__'
     GOTO_PAGE_BUTTON = 'Action.AgentRDActSummaryAllListing.GOTO_PAGE__'

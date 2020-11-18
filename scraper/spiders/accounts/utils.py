@@ -10,11 +10,6 @@ def account_counter_to_page_index(account_counter, accounts_per_page=CONST.ACCOU
     return ceil(account_counter / accounts_per_page), (account_counter - 1) % accounts_per_page
 
 
-def fetch_total_accounts(response):
-    total_accounts_text = response.css(SELECT.TOTAL_ACCOUNTS_TEXT).get()
-    return list(map(int, filter(lambda s: s.isdigit(), total_accounts_text.split(' '))))[-1]
-
-
 def extract_account_item(response):
     def get_css(_id): return f'div p span[id="{_id}"]::text'
 

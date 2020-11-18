@@ -1,4 +1,3 @@
 import scraper.constants as CONST
 
-ACCOUNTS_LIST__HREF = 'table#SummaryList tr td a::attr(href)'
-TOTAL_ACCOUNTS_TEXT = 'h2 span span::text'
+ACCOUNTS_LIST__HREF = f'table#{CONST.AccountsListPage.ACCOUNTS_LIST_TABLE_ID} tr td a::attr(href)'
