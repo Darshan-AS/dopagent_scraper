@@ -59,7 +59,8 @@ class AccountsSpider(Spider):
         return FormRequest.from_response(
             response,
             formdata={
-                CONST.AccountsListPage.GOTO_PAGE_NUMBER_INPUT: str(page_number)
+                CONST.AccountsListPage.GOTO_PAGE_NUMBER_INPUT:
+                str(page_number)
             },
             clickdata={'name': CONST.AccountsListPage.GOTO_PAGE_BUTTON},
             callback=callback,
