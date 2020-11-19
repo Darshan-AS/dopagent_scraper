@@ -27,7 +27,7 @@ class MenuPage:
 
 class AccountsListPage:
     MESSAGE_DISPLAY_TABLE_ID = 'MessageDisplay_TABLE'
-    
+
     PAY_MODE_KEY = 'CustomAgentRDAccountFG.PAY_MODE_SELECTED_FOR_TRN'
     PAY_MODE_VALUE_CASH = 'C'
     PAY_MODE_VALUE_DOP_CHEQUE = 'DC'
@@ -64,7 +64,21 @@ class AccountDetailPage:
 
     BACK_BUTTON = 'Action.BACK_TO_ACCOUNT_LIST'
 
+
 class InstallmentsPage:
+    RADIO_BUTTON = 'CustomAgentRDAccountFG.SELECTED_INDEX'
+    ACCOUNT_NUMBER_ID_PREFIX = 'HREF_CustomAgentRDAccountFG.ACCOUNT_NUMBER_ARRAY'
+
+    GOTO_PREV_PAGE_BUTTON = 'Action.SelectedAgentRDActSummaryListing.GOTO_PREV__'
+    GOTO_NEXT_PAGE_BUTTON = 'Action.SelectedAgentRDActSummaryListing.GOTO_NEXT__'
+    GOTO_PAGE_BUTTON = 'Action.SelectedAgentRDActSummaryListing.GOTO_PAGE__'
+    GOTO_PAGE_NUMBER_INPUT = 'CustomAgentRDAccountFG.SelectedAgentRDActSummaryListing_REQUESTED_PAGE_NUMBER'
+
     PAY_ALL_SAVED_INSTALLMENTS_BUTTON = 'Action.PAY_ALL_SAVED_INSTALLMENTS'
     DELETE_SAVED_RECORD_BUTTON = 'Action.DELETE_SAVED_RECORD'
     BACK_TO_ACCOUNT_LIST_BUTTON = 'Action.BACK_TO_ACCOUNT_LIST'
+
+    NO_OF_INSTALLMENTS_INPUT = 'CustomAgentRDAccountFG.RD_INSTALLMENT_NO'
+    ASLASS_NUMBER_INPUT = 'CustomAgentRDAccountFG.ASLAAS_NO'
+    GET_REBATE_AND_DEFAULT_FEE_BUTTON = 'Action.CALCULATE_REBATE'
+    SAVE_NO_OF_INSTALLMENTS_BUTTON = 'Action.ADD_TO_LIST'

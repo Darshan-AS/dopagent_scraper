@@ -19,7 +19,7 @@ def select_pay_mode_and_accounts(response, pay_mode):
     return form_data
 
 
-def extract_auth_token_item(response):
+def extract_reference_token_item(response):
     message = response.css(SELECT.MESSAGE__DIV).get()
     reference_number = re.search('C\d+', message).group()
 
@@ -29,3 +29,8 @@ def extract_auth_token_item(response):
     )
     reference_token_loader.add_value('reference_number', reference_number)
     return reference_token_loader.load_item()
+
+
+def extract_installment_account_nos(response):
+    account_nos = response.css(SELECT.INSTALLMENT_LIST_ACCOUNT_NOS).getall()
+    return list(map(str.strip, account_nos))
