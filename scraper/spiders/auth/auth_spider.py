@@ -20,16 +20,18 @@ class AuthSpider(Spider):
             response,
             formdata={
                 CONST.LoginPage.AGENT_ID_INPUT: self.agent_id,
-                CONST.LoginPage.PASSWORD_INPUT: self.password
+                CONST.LoginPage.PASSWORD_INPUT: self.password,
             },
-            callback=self.after_login
+            callback=self.after_login,
         )
 
     @validate_response
     def after_login(self, response):
         accounts_link = response.css(SELECT.ACCOUNTS_BUTTON__HREF).get()
         if accounts_link is not None:
-            yield response.follow(accounts_link, callback=self.after_accounts_navigation)
+            yield response.follow(
+                accounts_link, callback=self.after_accounts_navigation
+            )
 
     @validate_response
     def after_accounts_navigation(self, response):
