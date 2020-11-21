@@ -42,7 +42,9 @@ class AccountsListPage:
     GOTO_PREV_PAGE_BUTTON = 'Action.AgentRDActSummaryAllListing.GOTO_PREV__'
     GOTO_NEXT_PAGE_BUTTON = 'Action.AgentRDActSummaryAllListing.GOTO_NEXT__'
     GOTO_PAGE_BUTTON = 'Action.AgentRDActSummaryAllListing.GOTO_PAGE__'
-    GOTO_PAGE_NUMBER_INPUT = 'CustomAgentRDAccountFG.AgentRDActSummaryAllListing_REQUESTED_PAGE_NUMBER'
+    GOTO_PAGE_NUMBER_INPUT = (
+        'CustomAgentRDAccountFG.AgentRDActSummaryAllListing_REQUESTED_PAGE_NUMBER'
+    )
 
     SAVE_ACCOUNTS_BUTTON = 'Action.SAVE_ACCOUNTS'
     VIEW_SAVED_INSTALLMENTS_BUTTON = 'Action.VIEW_SAVED_INSTALLMENTS'
@@ -72,7 +74,9 @@ class InstallmentsPage:
     GOTO_PREV_PAGE_BUTTON = 'Action.SelectedAgentRDActSummaryListing.GOTO_PREV__'
     GOTO_NEXT_PAGE_BUTTON = 'Action.SelectedAgentRDActSummaryListing.GOTO_NEXT__'
     GOTO_PAGE_BUTTON = 'Action.SelectedAgentRDActSummaryListing.GOTO_PAGE__'
-    GOTO_PAGE_NUMBER_INPUT = 'CustomAgentRDAccountFG.SelectedAgentRDActSummaryListing_REQUESTED_PAGE_NUMBER'
+    GOTO_PAGE_NUMBER_INPUT = (
+        'CustomAgentRDAccountFG.SelectedAgentRDActSummaryListing_REQUESTED_PAGE_NUMBER'
+    )
 
     PAY_ALL_SAVED_INSTALLMENTS_BUTTON = 'Action.PAY_ALL_SAVED_INSTALLMENTS'
     DELETE_SAVED_RECORD_BUTTON = 'Action.DELETE_SAVED_RECORD'

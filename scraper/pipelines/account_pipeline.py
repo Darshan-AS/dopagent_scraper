@@ -4,7 +4,6 @@ from itemadapter import ItemAdapter
 
 
 class AccountPipeline:
-
     def open_spider(self, spider):
         self.file = open('items.json', 'a')
 

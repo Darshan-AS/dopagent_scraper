@@ -27,10 +27,7 @@ class AccountsSpider(Spider):
         page, index = utils.account_counter_to_page_index(account_counter)
         if page_number != page:
             yield self.goto_page_number_request(
-                response,
-                page,
-                account_counter,
-                self.parse
+                response, page, account_counter, self.parse
             )
         else:
             all_accounts = response.css(SELECT.ACCOUNTS_LIST__HREF).getall()
@@ -40,7 +37,7 @@ class AccountsSpider(Spider):
                     account_link,
                     page_number,
                     account_counter,
-                    self.after_account_details_navigation
+                    self.after_account_details_navigation,
                 )
                 print(f'Scraped account {account_counter}')
 
@@ -50,32 +47,30 @@ class AccountsSpider(Spider):
 
         yield FormRequest.from_response(
             response,
-            clickdata={'name':  CONST.AccountDetailPage.BACK_BUTTON},
+            clickdata={'name': CONST.AccountDetailPage.BACK_BUTTON},
             callback=self.parse,
-            cb_kwargs=kwargs
+            cb_kwargs=kwargs,
         )
 
-    def goto_page_number_request(self, response, page_number, account_counter, callback):
+    def goto_page_number_request(
+        self, response, page_number, account_counter, callback
+    ):
         return FormRequest.from_response(
             response,
-            formdata={
-                CONST.AccountsListPage.GOTO_PAGE_NUMBER_INPUT:
-                str(page_number)
-            },
+            formdata={CONST.AccountsListPage.GOTO_PAGE_NUMBER_INPUT: str(page_number)},
             clickdata={'name': CONST.AccountsListPage.GOTO_PAGE_BUTTON},
             callback=callback,
-            cb_kwargs={
-                'page_number': page_number,
-                "account_counter": account_counter
-            }
+            cb_kwargs={'page_number': page_number, "account_counter": account_counter},
         )
 
-    def goto_account_detail_request(self, response, account_link, page_number, account_counter, callback):
+    def goto_account_detail_request(
+        self, response, account_link, page_number, account_counter, callback
+    ):
         return response.follow(
             account_link,
             callback=callback,
             cb_kwargs={
                 'page_number': page_number,
-                "account_counter": account_counter + 1
-            }
+                "account_counter": account_counter + 1,
+            },
         )
