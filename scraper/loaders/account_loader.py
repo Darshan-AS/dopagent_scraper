@@ -9,7 +9,10 @@ def sanitize_floats(x):
 
 
 def to_date(date_str):
-    return datetime.strptime(date_str, '%d-%b-%Y').date()
+    try:
+        return datetime.strptime(date_str, '%d-%b-%Y').date()
+    except:
+        return None
 
 
 class AccountLoader(ItemLoader):

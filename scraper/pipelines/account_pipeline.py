@@ -1,4 +1,5 @@
 import json
+from scraper.items import AccountItem
 
 from itemadapter import ItemAdapter
 
@@ -9,8 +10,11 @@ class AccountPipeline:
         self.file = open(f'./accounts/{file_name}.json', 'a')
 
     def process_item(self, item, spider):
-        line = json.dumps(ItemAdapter(item).asdict(), indent=4, default=str) + "\n"
-        self.file.write(line)
+        if not isinstance(item, AccountItem):
+            return
+
+        item_str = json.dumps(ItemAdapter(item).asdict(), indent=4, default=str) + "\n"
+        self.file.write(item_str)
         return item
 
     def close_spider(self, spider):
