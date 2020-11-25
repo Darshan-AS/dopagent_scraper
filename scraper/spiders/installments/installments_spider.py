@@ -1,13 +1,11 @@
+from enum import Enum
+
 import scraper.constants as CONST
-from scraper.constants import InstallmentsPage
 import scraper.spiders.installments.selectors as SELECT
 import scraper.spiders.installments.utils as utils
 from scraper.spiders.utils import fetch_total_accounts
 from scraper.utils import validate_response
 from scrapy import FormRequest, Spider
-from scrapy.shell import inspect_response
-from scrapy.utils.response import open_in_browser
-from enum import Enum
 
 
 class PayMode(Enum):

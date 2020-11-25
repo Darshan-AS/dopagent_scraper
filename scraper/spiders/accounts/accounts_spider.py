@@ -4,8 +4,6 @@ import scraper.spiders.accounts.utils as utils
 from scraper.spiders.utils import fetch_total_accounts
 from scraper.utils import validate_response
 from scrapy import FormRequest, Spider
-from scrapy.shell import inspect_response
-from scrapy.utils.response import open_in_browser
 
 
 class AccountsSpider(Spider):

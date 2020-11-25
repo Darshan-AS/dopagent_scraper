@@ -1,4 +1,5 @@
 import re
+
 import scraper.constants as CONST
 import scraper.spiders.installments.selectors as SELECT
 from scraper.items import ReferenceTokenItem
@@ -20,7 +21,7 @@ def select_pay_mode_and_accounts(response, pay_mode):
 
 def extract_reference_token_item(response):
     message = response.css(SELECT.MESSAGE__DIV).get()
-    reference_number = re.search('C\d+', message).group()
+    reference_number = re.search('C\\d+', message).group()
 
     reference_token_loader = ReferenceTokenLoader(
         item=ReferenceTokenItem(), response=response
