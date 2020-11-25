@@ -61,6 +61,7 @@ class InstallmentsSpider(Spider):
                 self.after_save_installments_navigation,
             )
 
+    @validate_response
     def after_save_installments_navigation(
         self, response, page_number=1, modified=set()
     ):
@@ -90,6 +91,7 @@ class InstallmentsSpider(Spider):
                 response, self.after_pay_saved_installment_navigation
             )
 
+    @validate_response
     def after_pay_saved_installment_navigation(self, response):
         yield utils.extract_reference_token_item(response)
 
