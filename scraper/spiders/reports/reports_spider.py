@@ -17,6 +17,11 @@ class OutputType(Enum):
 class ReportsSpider(Spider):
     name = 'reports'
 
+    custom_settings = {
+        'ITEM_PIPELINES': {'scraper.pipelines.InstallmentPipeline': 400},
+        'LOG_ENABLED': True,
+    }
+
     def __init__(
         self, reference_number='', output_type=OutputType.PDF, *args, **kwargs
     ):
