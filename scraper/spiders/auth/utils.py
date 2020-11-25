@@ -7,6 +7,14 @@ from scraper.loaders import AuthTokenLoader
 def extract_auth_token_item(response):
     auth_token_loader = AuthTokenLoader(item=AuthTokenItem(), response=response)
     auth_token_loader.add_css(
+        'first_name',
+        SELECT.FIRST_NAME__SPAN,
+    )
+    auth_token_loader.add_css(
+        'last_name',
+        SELECT.LAST_NAME__SPAN,
+    )
+    auth_token_loader.add_css(
         'dashboard_url',
         SELECT.DASHBOARD_BUTTON__HREF,
     )

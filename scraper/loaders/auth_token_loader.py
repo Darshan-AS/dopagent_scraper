@@ -10,6 +10,9 @@ def to_full_url(url):
 class AuthTokenLoader(ItemLoader):
 
     default_input_processor = MapCompose(to_full_url)
+
+    first_name_in = MapCompose(str.strip, str.title)
+    last_name_in = MapCompose(str.strip, str.title)
     referer_header_in = Identity()
 
     default_output_processor = TakeFirst()
