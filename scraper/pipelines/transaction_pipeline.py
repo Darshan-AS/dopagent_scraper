@@ -11,7 +11,7 @@ class TransactionPipeline:
         self.file = open(f'./reports/{file_name}.json', 'w')
 
     def process_item(self, item, spider):
-        line = json.dumps(ItemAdapter(item).asdict()) + "\n"
+        line = json.dumps(ItemAdapter(item).asdict(), indent=4, default=str) + "\n"
         self.file.write(line)
         return item
 
