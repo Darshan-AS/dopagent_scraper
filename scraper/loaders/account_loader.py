@@ -1,7 +1,7 @@
+from datetime import datetime
+
 from itemloaders.processors import Compose, MapCompose, TakeFirst
 from scrapy.loader import ItemLoader
-from datetime import datetime
-from functools import partial
 
 
 def sanitize_floats(x):

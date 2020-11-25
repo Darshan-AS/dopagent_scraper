@@ -1,5 +1,8 @@
 import scraper.constants as CONST
 
+FIRST_NAME__SPAN = f'div p span[id="{CONST.MenuPage.MESSAGE_TEXT_ID}"] span[id="{CONST.MenuPage.FIRST_NAME_TEXT_ID}"]::text'
+LAST_NAME__SPAN = f'div p span[id="{CONST.MenuPage.MESSAGE_TEXT_ID}"] span[id="{CONST.MenuPage.LAST_NAME_TEXT_ID}"]::text'
+
 DASHBOARD_BUTTON__HREF = f'a[name="{CONST.MenuPage.DASHBOARD_BUTTON}"]::attr(href)'
 CHANGE_PASSWORD_BUTTON__HREF = (
     f'a[name="{CONST.MenuPage.CHANGE_PASSWORD_BUTTON}"]::attr(href)'
