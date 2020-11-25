@@ -10,7 +10,7 @@ class AccountsSpider(Spider):
     name = 'accounts'
 
     custom_settings = {
-        'ITEM_PIPELINES': {'scraper.pipelines.AccountPipeline': 300},
+        'ITEM_PIPELINES': {'scraper.pipelines.AccountPipeline': 0},
         'LOG_ENABLED': True,
     }
 

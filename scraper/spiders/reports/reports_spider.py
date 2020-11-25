@@ -17,7 +17,7 @@ class ReportsSpider(Spider):
     name = 'reports'
 
     custom_settings = {
-        'ITEM_PIPELINES': {'scraper.pipelines.TransactionPipeline': 400},
+        'ITEM_PIPELINES': {'scraper.pipelines.TransactionPipeline': 0},
         'LOG_ENABLED': True,
     }
 
@@ -64,6 +64,7 @@ class ReportsSpider(Spider):
                 self.after_download_report_navigation,
             )
 
+    @validate_response
     def after_download_report_navigation(self, response):
         with open(
             f'./reports/{self.reference_number}.{str(self.output_type.name).lower()}',
