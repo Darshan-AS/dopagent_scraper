@@ -18,7 +18,7 @@ class ReportsSpider(Spider):
     name = 'reports'
 
     custom_settings = {
-        'ITEM_PIPELINES': {'scraper.pipelines.InstallmentPipeline': 400},
+        'ITEM_PIPELINES': {'scraper.pipelines.TransactionPipeline': 400},
         'LOG_ENABLED': True,
     }
 

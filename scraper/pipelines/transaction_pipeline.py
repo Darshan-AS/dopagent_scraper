@@ -3,7 +3,7 @@ import json
 from itemadapter import ItemAdapter
 
 
-class InstallmentPipeline:
+class TransactionPipeline:
     def open_spider(self, spider):
         file_name = (
             spider.reference_number if hasattr(spider, 'reference_number') else 'common'
