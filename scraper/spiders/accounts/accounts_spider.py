@@ -11,6 +11,11 @@ from scrapy.utils.response import open_in_browser
 class AccountsSpider(Spider):
     name = 'accounts'
 
+    custom_settings = {
+        'ITEM_PIPELINES': {'scraper.pipelines.AccountPipeline': 300},
+        'LOG_ENABLED': True,
+    }
+
     def __init__(self, account_counter=1, *args, **kwargs):
         super(AccountsSpider, self).__init__(*args, **kwargs)
 

@@ -3,10 +3,12 @@ import json
 from itemadapter import ItemAdapter
 
 
-class AccountPipeline:
+class InstallmentPipeline:
     def open_spider(self, spider):
-        file_name = spider.agent_id if hasattr(spider, 'agent_id') else 'common'
-        self.file = open(f'./accounts/{file_name}.json', 'a')
+        file_name = (
+            spider.reference_number if hasattr(spider, 'reference_number') else 'common'
+        )
+        self.file = open(f'./reports/{file_name}.json', 'w')
 
     def process_item(self, item, spider):
         line = json.dumps(ItemAdapter(item).asdict()) + "\n"
