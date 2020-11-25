@@ -1,7 +1,7 @@
 from scrapy.item import Field, Item
 
 
-class InstallmentItem(Item):
+class TransactionItem(Item):
     reference_number = Field()
     account_number = Field()
     total_deposit_amount = Field()

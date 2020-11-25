@@ -44,7 +44,7 @@ class ReportsSpider(Spider):
     def after_search_reports_navigation(self, response, page_number=1):
         total_accounts = fetch_total_accounts(response)
         yield from map(
-            utils.extract_installment_item, response.css(SELECT.REPORT_LIST__ROWS)[2:-1]
+            utils.extract_transaction_item, response.css(SELECT.REPORT_LIST__ROWS)[2:-1]
         )
 
         if total_accounts > page_number * CONST.ACCOUNTS_PER_PAGE:
