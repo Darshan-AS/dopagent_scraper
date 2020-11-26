@@ -64,7 +64,6 @@ class ReportsSpider(Spider):
                 self.after_download_report_navigation,
             )
 
-    @validate_response
     def after_download_report_navigation(self, response):
         with open(
             f'./reports/{self.reference_number}.{str(self.output_type.name).lower()}',
