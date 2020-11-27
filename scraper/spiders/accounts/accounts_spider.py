@@ -4,12 +4,15 @@ import scraper.spiders.accounts.utils as utils
 from scraper.spiders.utils import fetch_total_accounts
 from scraper.utils import validate_response
 from scrapy import FormRequest, Spider
-from scrapy.shell import inspect_response
-from scrapy.utils.response import open_in_browser
 
 
 class AccountsSpider(Spider):
     name = 'accounts'
+
+    custom_settings = {
+        'ITEM_PIPELINES': {'scraper.pipelines.AccountPipeline': 0},
+        'LOG_ENABLED': True,
+    }
 
     def __init__(self, account_counter=1, *args, **kwargs):
         super(AccountsSpider, self).__init__(*args, **kwargs)

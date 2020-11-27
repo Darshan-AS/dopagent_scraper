@@ -1,12 +1,11 @@
+from enum import Enum
+
 import scraper.constants as CONST
 import scraper.spiders.reports.selectors as SELECT
 import scraper.spiders.reports.utils as utils
 from scraper.spiders.utils import fetch_total_accounts
 from scraper.utils import validate_response
 from scrapy import FormRequest, Spider
-from scrapy.shell import inspect_response
-from scrapy.utils.response import open_in_browser
-from enum import Enum
 
 
 class OutputType(Enum):
@@ -16,6 +15,11 @@ class OutputType(Enum):
 
 class ReportsSpider(Spider):
     name = 'reports'
+
+    custom_settings = {
+        'ITEM_PIPELINES': {'scraper.pipelines.TransactionPipeline': 0},
+        'LOG_ENABLED': True,
+    }
 
     def __init__(
         self, reference_number='', output_type=OutputType.PDF, *args, **kwargs

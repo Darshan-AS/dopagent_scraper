@@ -1,14 +1,18 @@
 import scraper.constants as CONST
-from itemloaders.processors import Compose, TakeFirst
+from itemloaders.processors import Identity, MapCompose, TakeFirst
 from scrapy.loader import ItemLoader
 
 
-def to_full_url():
-    return Compose(TakeFirst(), lambda url: CONST.DOPAGENT_BASE_URL + url)
+def to_full_url(url):
+    return CONST.DOPAGENT_BASE_URL + url
 
 
 class AuthTokenLoader(ItemLoader):
 
-    default_output_processor = to_full_url()
+    default_input_processor = MapCompose(to_full_url)
 
-    referer_header_out = TakeFirst()
+    first_name_in = MapCompose(str.strip, str.title)
+    last_name_in = MapCompose(str.strip, str.title)
+    referer_header_in = Identity()
+
+    default_output_processor = TakeFirst()

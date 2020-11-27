@@ -3,3 +3,7 @@
 logs
 __pycache__
 .DS_Store
+accounts
+reports
+.devcontainer
+.idea

@@ -1,30 +1,29 @@
-from itemloaders.processors import Compose, MapCompose, TakeFirst
+from datetime import datetime
+
+from itemloaders.processors import MapCompose, TakeFirst
 from scrapy.loader import ItemLoader
 
 
-def sanitize_floats():
-    return MapCompose(lambda x: x.replace(',', ''))
+def sanitize_floats(x):
+    return x.replace(',', '')
 
 
-def to_float():
-    return Compose(TakeFirst(), float)
-
-
-def to_int():
-    return Compose(TakeFirst(), int)
+def to_date(date_str):
+    return datetime.strptime(date_str, '%d-%b-%Y').date()
 
 
 class AccountLoader(ItemLoader):
 
     default_output_processor = TakeFirst()
 
-    denomination_in = sanitize_floats()
-    total_deposit_amount_in = sanitize_floats()
-
-    denomination_out = to_float()
-    total_deposit_amount_out = to_float()
-    month_paid_upto_out = to_int()
-    rebate_paid_out = to_float()
-    default_fee_out = to_float()
-    default_installments_out = to_int()
-    pending_installments_out = to_int()
+    name_in = MapCompose(str.title)
+    opening_date_in = MapCompose(to_date)
+    denomination_in = MapCompose(sanitize_floats, float)
+    total_deposit_amount_in = MapCompose(sanitize_floats, float)
+    month_paid_upto_in = MapCompose(int)
+    next_installment_due_date_in = MapCompose(to_date)
+    date_of_last_deposit_in = MapCompose(to_date)
+    rebate_paid_in = MapCompose(float)
+    default_fee_in = MapCompose(float)
+    default_installments_in = MapCompose(int)
+    pending_installments_in = MapCompose(int)

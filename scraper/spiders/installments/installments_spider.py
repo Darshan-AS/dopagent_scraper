@@ -1,13 +1,11 @@
+from enum import Enum
+
 import scraper.constants as CONST
-from scraper.constants import InstallmentsPage
 import scraper.spiders.installments.selectors as SELECT
 import scraper.spiders.installments.utils as utils
 from scraper.spiders.utils import fetch_total_accounts
 from scraper.utils import validate_response
 from scrapy import FormRequest, Spider
-from scrapy.shell import inspect_response
-from scrapy.utils.response import open_in_browser
-from enum import Enum
 
 
 class PayMode(Enum):
@@ -63,6 +61,7 @@ class InstallmentsSpider(Spider):
                 self.after_save_installments_navigation,
             )
 
+    @validate_response
     def after_save_installments_navigation(
         self, response, page_number=1, modified=set()
     ):
@@ -92,6 +91,7 @@ class InstallmentsSpider(Spider):
                 response, self.after_pay_saved_installment_navigation
             )
 
+    @validate_response
     def after_pay_saved_installment_navigation(self, response):
         yield utils.extract_reference_token_item(response)
 

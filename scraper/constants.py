@@ -17,6 +17,10 @@ class LoginPage:
 
 
 class MenuPage:
+    MESSAGE_TEXT_ID = 'message'
+    FIRST_NAME_TEXT_ID = 'firstName'
+    LAST_NAME_TEXT_ID = 'lastName'
+    
     DASHBOARD_BUTTON = 'HREF_Dashboard'
     CHANGE_PASSWORD_BUTTON = 'HREF_Change Password'
     ACCOUNTS_BUTTON = 'HREF_Accounts'
