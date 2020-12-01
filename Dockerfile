@@ -23,6 +23,10 @@ RUN PIPENV_VENV_IN_PROJECT=1 pipenv install --deploy
 
 FROM base AS runtime
 
+# Install make
+RUN apt-get update && \
+    apt-get install -y make
+
 # Copy venv from build stage
 COPY --from=build /.venv /.venv
 ENV PATH /.venv/bin:$PATH
@@ -36,5 +40,5 @@ USER dopagent
 COPY . .
 
 # Run the application
-ENTRYPOINT ["scrapyrt", "-i", "0.0.0.0"]
+ENTRYPOINT ["make", "run"]
 EXPOSE 9080
