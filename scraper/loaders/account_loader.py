@@ -11,7 +11,7 @@ def sanitize_floats(x):
 def to_date(date_str):
     try:
         return datetime.strptime(date_str, '%d-%b-%Y').date()
-    except:
+    except ValueError:
         return None
 
 

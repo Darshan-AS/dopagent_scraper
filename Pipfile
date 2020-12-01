@@ -7,6 +7,9 @@ verify_ssl = true
 pep8 = "*"
 rope = "*"
 black = "*"
+pylint = "*"
+flake8 = "*"
+bandit = "*"
 
 [packages]
 scrapy = "*"

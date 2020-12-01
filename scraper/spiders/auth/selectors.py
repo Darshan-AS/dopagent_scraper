@@ -1,3 +1,4 @@
+# flake8: noqa, pylint: disable=line-too-long
 import scraper.constants as CONST
 
 FIRST_NAME__SPAN = f'div p span[id="{CONST.MenuPage.MESSAGE_TEXT_ID}"] span[id="{CONST.MenuPage.FIRST_NAME_TEXT_ID}"]::text'

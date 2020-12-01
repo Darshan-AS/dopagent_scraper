@@ -1,7 +1,6 @@
 from math import ceil
 
 import scraper.constants as CONST
-import scraper.spiders.accounts.selectors as SELECT
 from scraper.items import AccountItem
 from scraper.loaders import AccountLoader
 

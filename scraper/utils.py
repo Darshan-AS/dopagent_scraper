@@ -5,6 +5,7 @@ from scrapy import Spider
 import scraper.constants as CONST
 
 
+# pylint: disable=inconsistent-return-statements
 def validate_response(func):
     @wraps(func)
     def wrapper(self: Spider, response, *args, **kwargs):
