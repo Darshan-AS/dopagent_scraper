@@ -32,17 +32,28 @@ RUN apt-get update && apt-get install -y \
 
 # Get poetry and install python dependencies to /.venv
 COPY pyproject.toml poetry.lock ./
-RUN pip install --upgrade pip && \
-    pip install poetry && \
-    poetry install --no-root --no-dev
+RUN pip install --upgrade pip \
+    && pip install poetry \
+    && poetry install --no-root --no-dev
 
 
-FROM base AS runtime
+FROM build as dev
 
-# Install make
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    make \
-    && rm -rf /var/lib/apt/lists/*
+# Install python dependencies including dev
+RUN poetry install --no-root
+
+# Set venv in PATH
+ENV PATH /.venv/bin:$PATH
+
+# Copy application into container
+COPY . .
+
+# Run the application
+ENTRYPOINT ["scrapyrt"]
+EXPOSE 9080
+
+
+FROM base AS prod
 
 # Copy venv from build stage
 COPY --from=build /.venv /.venv
@@ -57,5 +68,5 @@ USER dopagent
 COPY . .
 
 # Run the application
-ENTRYPOINT ["make"]
+ENTRYPOINT ["scrapyrt"]
 EXPOSE 9080
