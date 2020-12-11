@@ -1,11 +1,12 @@
 from enum import Enum
 
+from scrapy import FormRequest, Spider
+
 import scraper.constants as CONST
 import scraper.spiders.reports.selectors as SELECT
 import scraper.spiders.reports.utils as utils
 from scraper.spiders.utils import fetch_total_accounts
 from scraper.utils import validate_response
-from scrapy import FormRequest, Spider
 
 
 class ReportType(Enum):
@@ -24,13 +25,14 @@ class ReportsSpider(Spider):
     }
 
     def __init__(
-        self, reference_number='', report_type=ReportType.PDF.name, *args, **kwargs
+        self, reference_number, *args, report_type=ReportType.PDF.name, **kwargs
     ):
-        super(ReportsSpider, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         self.reference_number = reference_number
         self.report_type = ReportType[report_type]
 
+    # pylint: disable=arguments-differ
     @validate_response
     def parse(self, response):
         if not self.reference_number:
@@ -38,9 +40,12 @@ class ReportsSpider(Spider):
 
         return FormRequest.from_response(
             response,
+            # fmt: off
             formdata={
-                CONST.ReportsPage.REFERENCE_NUMBER_INPUT: self.reference_number,
-                CONST.ReportsPage.STATUS_SELECT: CONST.ReportsPage.STATUS_SELECT_VALUE_SUCCESS,
+                CONST.ReportsPage.REFERENCE_NUMBER_INPUT:
+                self.reference_number,
+                CONST.ReportsPage.STATUS_SELECT:
+                CONST.ReportsPage.STATUS_SELECT_VALUE_SUCCESS,
             },
             clickdata={'name': CONST.ReportsPage.SEARCH_BUTTON},
             callback=self.after_search_reports_navigation,
@@ -48,9 +53,12 @@ class ReportsSpider(Spider):
 
     @validate_response
     def after_search_reports_navigation(
-        self, response, page_number=1, transaction_selectors=[]
+        self, response, page_number=1, transaction_selectors=None
     ):
         total_accounts = fetch_total_accounts(response)
+        transaction_selectors = (
+            transaction_selectors if transaction_selectors is not None else []
+        )
         transaction_selectors.extend(response.css(SELECT.REPORT_LIST__ROWS)[2:-1])
         if total_accounts > page_number * CONST.ACCOUNTS_PER_PAGE:
             yield self.goto_reports_page_number_request(

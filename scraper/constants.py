@@ -1,3 +1,5 @@
+# flake8: noqa
+# pylint: disable=line-too-long, too-few-public-methods
 DOPAGENT_HOST = 'https://dopagent.indiapost.gov.in/'
 DOPAGENT_BASE_URL = DOPAGENT_HOST + "corp/"
 ACCOUNTS_PER_PAGE = 10
@@ -20,7 +22,7 @@ class MenuPage:
     MESSAGE_TEXT_ID = 'message'
     FIRST_NAME_TEXT_ID = 'firstName'
     LAST_NAME_TEXT_ID = 'lastName'
-    
+
     DASHBOARD_BUTTON = 'HREF_Dashboard'
     CHANGE_PASSWORD_BUTTON = 'HREF_Change Password'
     ACCOUNTS_BUTTON = 'HREF_Accounts'
@@ -46,7 +48,9 @@ class AccountsListPage:
     GOTO_PREV_PAGE_BUTTON = 'Action.AgentRDActSummaryAllListing.GOTO_PREV__'
     GOTO_NEXT_PAGE_BUTTON = 'Action.AgentRDActSummaryAllListing.GOTO_NEXT__'
     GOTO_PAGE_BUTTON = 'Action.AgentRDActSummaryAllListing.GOTO_PAGE__'
-    GOTO_PAGE_NUMBER_INPUT = 'CustomAgentRDAccountFG.AgentRDActSummaryAllListing_REQUESTED_PAGE_NUMBER'
+    GOTO_PAGE_NUMBER_INPUT = (
+        'CustomAgentRDAccountFG.AgentRDActSummaryAllListing_REQUESTED_PAGE_NUMBER'
+    )
 
     SAVE_ACCOUNTS_BUTTON = 'Action.SAVE_ACCOUNTS'
     VIEW_SAVED_INSTALLMENTS_BUTTON = 'Action.VIEW_SAVED_INSTALLMENTS'
@@ -76,7 +80,9 @@ class InstallmentsPage:
     GOTO_PREV_PAGE_BUTTON = 'Action.SelectedAgentRDActSummaryListing.GOTO_PREV__'
     GOTO_NEXT_PAGE_BUTTON = 'Action.SelectedAgentRDActSummaryListing.GOTO_NEXT__'
     GOTO_PAGE_BUTTON = 'Action.SelectedAgentRDActSummaryListing.GOTO_PAGE__'
-    GOTO_PAGE_NUMBER_INPUT = 'CustomAgentRDAccountFG.SelectedAgentRDActSummaryListing_REQUESTED_PAGE_NUMBER'
+    GOTO_PAGE_NUMBER_INPUT = (
+        'CustomAgentRDAccountFG.SelectedAgentRDActSummaryListing_REQUESTED_PAGE_NUMBER'
+    )
 
     PAY_ALL_SAVED_INSTALLMENTS_BUTTON = 'Action.PAY_ALL_SAVED_INSTALLMENTS'
     DELETE_SAVED_RECORD_BUTTON = 'Action.DELETE_SAVED_RECORD'
@@ -104,14 +110,26 @@ class ReportsPage:
     CLEAR_BUTTON = 'Action.Clear'
 
     REPORTS_LIST_TABLE_ID = 'SearchResults'
-    TRANSACTION_REFERENCE_NUMBER_ID_PREFIX = 'HREF_CustomAgentRDAccountFG.EBANKING_REF_NUMBER_ARRAY'
-    TRANSACTION_ACCOUNT_NUMBER_ID_PREFIX = 'HREF_CustomAgentRDAccountFG.SAVED_ACCOUNT_NUMBER_ARRAY'
-    TRANSACTION_TOTAL_DEPOSIT_AMOUNT_ID_PREFIX = 'HREF_CustomAgentRDAccountFG.SAVED_RD_INSTALLMENT_AMOUNT_ARRAY'
-    TRANSACTION_NUMBER_OF_INSTALLMENTS_ID_PREFIX = 'HREF_CustomAgentRDAccountFG.NO_OF_INSTALLMENT_ARRAY'
+    TRANSACTION_REFERENCE_NUMBER_ID_PREFIX = (
+        'HREF_CustomAgentRDAccountFG.EBANKING_REF_NUMBER_ARRAY'
+    )
+    TRANSACTION_ACCOUNT_NUMBER_ID_PREFIX = (
+        'HREF_CustomAgentRDAccountFG.SAVED_ACCOUNT_NUMBER_ARRAY'
+    )
+    TRANSACTION_TOTAL_DEPOSIT_AMOUNT_ID_PREFIX = (
+        'HREF_CustomAgentRDAccountFG.SAVED_RD_INSTALLMENT_AMOUNT_ARRAY'
+    )
+    TRANSACTION_NUMBER_OF_INSTALLMENTS_ID_PREFIX = (
+        'HREF_CustomAgentRDAccountFG.NO_OF_INSTALLMENT_ARRAY'
+    )
     TRANSACTION_REBATE_ID_PREFIX = 'HREF_CustomAgentRDAccountFG.RD_REBATE_ARRAY'
-    TRANSACTION_DEFAULT_FEE_ID_PREFIX = 'HREF_CustomAgentRDAccountFG.RD_DEFAUT_FEE_ARRAY'
+    TRANSACTION_DEFAULT_FEE_ID_PREFIX = (
+        'HREF_CustomAgentRDAccountFG.RD_DEFAUT_FEE_ARRAY'
+    )
     TRANSACTION_STATUS_ID_PREFIX = 'CustomAgentRDAccountFG.INSTALLMENT_STATUS_ARRAY'
-    TRANSACTION_LAST_CREATED_DATE_AND_TIME_ID_PREFIX = 'HREF_CustomAgentRDAccountFG.LAST_CREATE_DATE_ARRAY'
+    TRANSACTION_LAST_CREATED_DATE_AND_TIME_ID_PREFIX = (
+        'HREF_CustomAgentRDAccountFG.LAST_CREATE_DATE_ARRAY'
+    )
 
     GOTO_PREV_PAGE_BUTTON = 'Action.RecurringInstallmentReportScreenListing.GOTO_PREV__'
     GOTO_NEXT_PAGE_BUTTON = 'Action.RecurringInstallmentReportScreenListing.GOTO_NEXT__'

@@ -1,7 +1,6 @@
 from base64 import b64encode
 
 import scraper.constants as CONST
-import scraper.spiders.reports.selectors as SELECT
 from scraper.items import TransactionItem
 from scraper.items.report_item import ReportItem
 from scraper.loaders import TransactionLoader

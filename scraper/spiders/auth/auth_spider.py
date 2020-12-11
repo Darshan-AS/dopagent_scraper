@@ -1,20 +1,22 @@
+from scrapy import FormRequest, Spider
+
 import scraper.constants as CONST
 import scraper.spiders.auth.selectors as SELECT
 import scraper.spiders.auth.utils as utils
 from scraper.utils import validate_response
-from scrapy import FormRequest, Spider
 
 
 class AuthSpider(Spider):
     name = 'auth'
     start_urls = [CONST.DOPAGENT_HOST]
 
-    def __init__(self, agent_id='', password='', *args, **kwargs):
-        super(AuthSpider, self).__init__(*args, **kwargs)
+    def __init__(self, *args, agent_id='', password='', **kwargs):
+        super().__init__(*args, **kwargs)
 
         self.agent_id = agent_id
         self.password = password
 
+    # pylint: disable=arguments-differ
     def parse(self, response):
         yield FormRequest.from_response(
             response,

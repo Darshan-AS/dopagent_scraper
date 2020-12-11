@@ -1,6 +1,7 @@
-import scraper.constants as CONST
 from itemloaders.processors import Identity, MapCompose, TakeFirst
 from scrapy.loader import ItemLoader
+
+import scraper.constants as CONST
 
 
 def to_full_url(url):

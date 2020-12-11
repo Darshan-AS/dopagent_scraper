@@ -1,9 +1,10 @@
+from scrapy import FormRequest, Spider
+
 import scraper.constants as CONST
 import scraper.spiders.accounts.selectors as SELECT
 import scraper.spiders.accounts.utils as utils
 from scraper.spiders.utils import fetch_total_accounts
 from scraper.utils import validate_response
-from scrapy import FormRequest, Spider
 
 
 class AccountsSpider(Spider):
@@ -14,11 +15,12 @@ class AccountsSpider(Spider):
         'LOG_ENABLED': True,
     }
 
-    def __init__(self, account_counter=1, *args, **kwargs):
-        super(AccountsSpider, self).__init__(*args, **kwargs)
+    def __init__(self, *args, account_counter=1, **kwargs):
+        super().__init__(*args, **kwargs)
 
         self.account_counter = account_counter
 
+    # pylint: disable=arguments-differ
     @validate_response
     def parse(self, response, page_number=1, account_counter=None):
         total_accounts = fetch_total_accounts(response)

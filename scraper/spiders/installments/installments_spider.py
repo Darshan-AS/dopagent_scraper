@@ -1,11 +1,11 @@
 from enum import Enum
 
+from scrapy import FormRequest, Spider
+
 import scraper.constants as CONST
-import scraper.spiders.installments.selectors as SELECT
 import scraper.spiders.installments.utils as utils
 from scraper.spiders.utils import fetch_total_accounts
 from scraper.utils import validate_response
-from scrapy import FormRequest, Spider
 
 
 class PayMode(Enum):
@@ -17,8 +17,8 @@ class PayMode(Enum):
 class InstallmentsSpider(Spider):
     name = 'installments'
 
-    def __init__(self, pay_mode=PayMode.CASH.name, accounts=[], *args, **kwargs):
-        super(InstallmentsSpider, self).__init__(*args, **kwargs)
+    def __init__(self, accounts, *args, pay_mode=PayMode.CASH.name, **kwargs):
+        super().__init__(*args, **kwargs)
 
         self.pay_mode = PayMode[pay_mode]
         self.accounts = accounts
@@ -26,6 +26,7 @@ class InstallmentsSpider(Spider):
             a['account_no']: a['no_of_installments'] for a in self.accounts
         }
 
+    # pylint: disable=arguments-differ
     @validate_response
     def parse(self, response):
         if not self.accounts:
@@ -63,9 +64,10 @@ class InstallmentsSpider(Spider):
 
     @validate_response
     def after_save_installments_navigation(
-        self, response, page_number=1, modified=set()
+        self, response, page_number=1, modified=None
     ):
         account_nos = utils.extract_installment_account_nos(response)
+        modified = modified if modified is not None else set()
         for index, account_no in enumerate(account_nos):
             if (
                 no_of_installment := self.account_installment_dict[account_no]

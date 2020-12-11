@@ -1,27 +1,59 @@
-FROM python:3.8-slim as base
+FROM python:3.9-slim as base
 
-# Setup env
-ENV LANG C.UTF-8
-ENV LC_ALL C.UTF-8
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONFAULTHANDLER 1
+# Turn off UI interaction
+ENV DEBIAN_FRONTEND noninteractive
+
+# Setup locales
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    locales \
+    && echo 'en_US.UTF-8 UTF-8' > /etc/locale.gen && /usr/sbin/locale-gen \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set ENV for locales, python, and pip
+ENV LANG=en_US.UTF-8 \
+    LC_ALL=en_US.UTF-8 \
+    LANGUAGE=en_US.UTF-8 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONFAULTHANDLER=1 \
+    PIP_NO_CACHE_DIR=off
 
 
 FROM base AS build
 
-# Install pipenv and compilation dependencies
-RUN pip install pipenv
-RUN apt-get update && \
-    apt-get install -y gcc && \
-    apt-get install -y git && \
-    rm -rf /var/lib/apt/lists/*
+# Set ENV for poetry
+ENV POETRY_VIRTUALENVS_IN_PROJECT=true \
+    POETRY_NO_INTERACTION=1
 
-# Install python dependencies to /.venv
-COPY Pipfile Pipfile.lock ./
-RUN PIPENV_VENV_IN_PROJECT=1 pipenv install --deploy
+# Install gcc and git
+RUN apt-get update && apt-get install -y \
+    gcc \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+# Get poetry and install python dependencies to /.venv
+COPY pyproject.toml poetry.lock ./
+RUN pip install --upgrade pip \
+    && pip install poetry \
+    && poetry install --no-root --no-dev
 
 
-FROM base AS runtime
+FROM build as dev
+
+# Install python dependencies including dev
+RUN poetry install --no-root
+
+# Set venv in PATH
+ENV PATH /.venv/bin:$PATH
+
+# Copy application into container
+COPY . .
+
+# Run the application
+ENTRYPOINT ["scrapyrt"]
+EXPOSE 9080
+
+
+FROM base AS prod
 
 # Copy venv from build stage
 COPY --from=build /.venv /.venv
@@ -36,5 +68,5 @@ USER dopagent
 COPY . .
 
 # Run the application
-ENTRYPOINT ["scrapyrt", "-i", "0.0.0.0"]
+ENTRYPOINT ["scrapyrt"]
 EXPOSE 9080

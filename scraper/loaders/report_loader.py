@@ -5,8 +5,10 @@ from scrapy.loader import ItemLoader
 def to_str(report_type):
     return report_type.name
 
+
 def to_utf8(base64_bytes):
     return base64_bytes.decode('utf-8')
+
 
 class ReportLoader(ItemLoader):
 
