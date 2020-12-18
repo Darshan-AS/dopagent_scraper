@@ -1,4 +1,3 @@
-import scraper.constants as CONST
 import scraper.spiders.auth.selectors as SELECT
 from scraper.items import AuthTokenItem
 from scraper.loaders import AuthTokenLoader
@@ -19,7 +18,7 @@ def extract_auth_token_item(response):
         SELECT.DASHBOARD_BUTTON__HREF,
     )
     auth_token_loader.add_css(
-        'change_password_uel',
+        'change_password_url',
         SELECT.CHANGE_PASSWORD_BUTTON__HREF,
     )
     auth_token_loader.add_css(
