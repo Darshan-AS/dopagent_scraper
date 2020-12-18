@@ -23,11 +23,11 @@ RESET		:= $(shell tput sgr0)
 COLOR		:= $(BLUE)
 
 define USAGE
-Build system for ${BLUE}dopagent_scraper${RESET} ${VERSION} 🕷 🕸
+Build system for ${BLUE}dopagent_scraper${RESET}
 
 ${BOLD}Commands${RESET}:
   ${COLOR}init${RESET}		Install Python dependencies with poetry
-  ${COLOR}fmt${RESET}		Format code
+  ${COLOR}format${RESET}		Format code
   ${COLOR}lint${RESET}		Run linters
   ${COLOR}run${RESET}		Run app in dev environment
   ${COLOR}clean${RESET}		Remove logs, cache and tmp files
@@ -38,9 +38,9 @@ help:
 	@echo "$$USAGE"
 
 init:
-	@echo "${COLOR}Installing poetry...${RESET}\n"
+	@echo "${COLOR}Installing poetry...${RESET}"
 	@pip install poetry
-	@echo "${COLOR}Installing dependencies using poetry...${RESET}\n"
+	@echo "${COLOR}Installing dependencies using poetry...${RESET}"
 	@poetry install --no-root
 
 format:
@@ -68,7 +68,9 @@ clean:
 	@rm -rf logs accounts reports
 	@echo "${COLOR}Cleaning up tmp files and cache...${RESET}"
 	@rm -rf logs accounts reports
-	@echo "${COLOR}Deleting Space...\nDeleting Time...\nDeleting the Universe...${RESET}"
+	@echo "${COLOR}Deleting Space...${RESET}"
+	@echo "${COLOR}Deleting Time...${RESET}"
+	@echo "${COLOR}Deleting the Universe...${RESET}"
 	@echo "Cleaned!"
 
 .PHONY: help init format lint run clean
