@@ -7,7 +7,7 @@ def to_str(report_type):
 
 
 def to_utf8(base64_bytes):
-    return base64_bytes.decode('utf-8')
+    return base64_bytes.decode("utf-8")
 
 
 class ReportLoader(ItemLoader):

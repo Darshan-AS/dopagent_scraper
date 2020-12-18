@@ -7,10 +7,10 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'dopagent_scraper'
+BOT_NAME = "dopagent_scraper"
 
-SPIDER_MODULES = ['scraper.spiders']
-NEWSPIDER_MODULE = 'scraper.spiders'
+SPIDER_MODULES = ["scraper.spiders"]
+NEWSPIDER_MODULE = "scraper.spiders"
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
@@ -45,7 +45,7 @@ ROBOTSTXT_OBEY = False
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 SPIDER_MIDDLEWARES = {
-    'scrapy.spidermiddlewares.httperror.HttpErrorMiddleware': 0,
+    "scrapy.spidermiddlewares.httperror.HttpErrorMiddleware": 0,
 }
 
 HTTPERROR_ALLOW_ALL = True
@@ -59,7 +59,7 @@ HTTPERROR_ALLOW_ALL = True
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html
 EXTENSIONS = {
-    'scrapy.extensions.logstats.LogStats': 0,
+    "scrapy.extensions.logstats.LogStats": 0,
 }
 
 # Configure item pipelines

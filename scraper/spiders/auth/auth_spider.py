@@ -7,10 +7,10 @@ from scraper.utils import validate_response
 
 
 class AuthSpider(Spider):
-    name = 'auth'
+    name = "auth"
     start_urls = [CONST.DOPAGENT_HOST]
 
-    def __init__(self, *args, agent_id='', password='', **kwargs):
+    def __init__(self, *args, agent_id="", password="", **kwargs):
         super().__init__(*args, **kwargs)
 
         self.agent_id = agent_id

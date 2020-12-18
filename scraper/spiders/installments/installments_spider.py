@@ -15,7 +15,7 @@ class PayMode(Enum):
 
 
 class InstallmentsSpider(Spider):
-    name = 'installments'
+    name = "installments"
 
     def __init__(self, accounts, *args, pay_mode=PayMode.CASH.name, **kwargs):
         super().__init__(*args, **kwargs)
@@ -23,7 +23,7 @@ class InstallmentsSpider(Spider):
         self.pay_mode = PayMode[pay_mode]
         self.accounts = accounts
         self.account_installment_dict = {
-            a['account_no']: a['no_of_installments'] for a in self.accounts
+            a["account_no"]: a["no_of_installments"] for a in self.accounts
         }
 
     # pylint: disable=arguments-differ
@@ -39,7 +39,7 @@ class InstallmentsSpider(Spider):
                     self.account_installment_dict.keys()
                 )
             },
-            clickdata={'name': CONST.AccountsListPage.FETCH_ACCOUNT_BUTTON},
+            clickdata={"name": CONST.AccountsListPage.FETCH_ACCOUNT_BUTTON},
             callback=self.after_fetch_accounts_navigation,
         )
 
@@ -105,16 +105,16 @@ class InstallmentsSpider(Spider):
         return FormRequest.from_response(
             response,
             formdata=selected_data,
-            clickdata={'name': CONST.AccountsListPage.GOTO_PAGE_BUTTON},
+            clickdata={"name": CONST.AccountsListPage.GOTO_PAGE_BUTTON},
             callback=callback,
-            cb_kwargs={'page_number': page_number},
+            cb_kwargs={"page_number": page_number},
         )
 
     def save_installments_request(self, response, selected_data, callback):
         return FormRequest.from_response(
             response,
             formdata=selected_data,
-            clickdata={'name': CONST.AccountsListPage.SAVE_ACCOUNTS_BUTTON},
+            clickdata={"name": CONST.AccountsListPage.SAVE_ACCOUNTS_BUTTON},
             callback=callback,
         )
 
@@ -124,9 +124,9 @@ class InstallmentsSpider(Spider):
         return FormRequest.from_response(
             response,
             formdata={CONST.InstallmentsPage.GOTO_PAGE_NUMBER_INPUT: str(page_number)},
-            clickdata={'name': CONST.InstallmentsPage.GOTO_PAGE_BUTTON},
+            clickdata={"name": CONST.InstallmentsPage.GOTO_PAGE_BUTTON},
             callback=callback,
-            cb_kwargs={'page_number': page_number},
+            cb_kwargs={"page_number": page_number},
         )
 
     def update_no_of_installments_request(
@@ -147,7 +147,7 @@ class InstallmentsSpider(Spider):
                     no_of_installments
                 ),
             },
-            clickdata={'name': CONST.InstallmentsPage.SAVE_NO_OF_INSTALLMENTS_BUTTON},
+            clickdata={"name": CONST.InstallmentsPage.SAVE_NO_OF_INSTALLMENTS_BUTTON},
             callback=callback,
             cb_kwargs={
                 "page_number": page_number,
@@ -159,7 +159,7 @@ class InstallmentsSpider(Spider):
         return FormRequest.from_response(
             response,
             clickdata={
-                'name': CONST.InstallmentsPage.PAY_ALL_SAVED_INSTALLMENTS_BUTTON
+                "name": CONST.InstallmentsPage.PAY_ALL_SAVED_INSTALLMENTS_BUTTON
             },
             callback=callback,
         )
