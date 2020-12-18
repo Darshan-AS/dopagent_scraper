@@ -5,12 +5,12 @@ from scrapy.loader import ItemLoader
 
 
 def sanitize_floats(x):
-    return x.replace(',', '')
+    return x.replace(",", "")
 
 
 def to_date(date_str):
     try:
-        return datetime.strptime(date_str, '%d-%b-%Y').date()
+        return datetime.strptime(date_str, "%d-%b-%Y").date()
     except ValueError:
         return None
 

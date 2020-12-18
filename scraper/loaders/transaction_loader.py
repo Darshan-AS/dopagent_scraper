@@ -5,11 +5,11 @@ from scrapy.loader import ItemLoader
 
 
 def sanitize_floats(x):
-    return x.replace(',', '')
+    return x.replace(",", "")
 
 
 def to_datetime(datetime_str):
-    return datetime.strptime(datetime_str, '%d-%b-%Y %I:%M:%S %p')
+    return datetime.strptime(datetime_str, "%d-%b-%Y %I:%M:%S %p")
 
 
 class TransactionLoader(ItemLoader):
