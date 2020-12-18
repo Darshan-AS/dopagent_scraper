@@ -14,28 +14,28 @@ endef
 
 export USAGE
 help:
-	@echo "$$USAGE"
+	@echo -e "$$USAGE"
 
 init:
-	@echo "${BLUE}Installing poetry...${NC}\n"
+	@echo -e "${BLUE}Installing poetry...${NC}\n"
 	@pip install poetry
-	@echo "${BLUE}Installing dependencies using poetry...${NC}\n"
+	@echo -e "${BLUE}Installing dependencies using poetry...${NC}\n"
 	@poetry install --no-root
 
 lint:
-	@echo "${BLUE}Running Pylint against source and test files...${NC}\n"
+	@echo -e "${BLUE}Running Pylint against source and test files...${NC}\n"
 	@poetry run pylint --rcfile=setup.cfg **/*.py
-	@echo "${BLUE}Running Flake8 against source and test files...${NC}\n"
+	@echo -e "${BLUE}Running Flake8 against source and test files...${NC}\n"
 	@poetry run flake8
-	@echo "${BLUE}Running Bandit against source files...${NC}\n"
+	@echo -e "${BLUE}Running Bandit against source files...${NC}\n"
 	@poetry run bandit -r --ini setup.cfg
 
 serve:
-	@echo "${BLUE}Starting server at port 9080${NC}\n"
+	@echo -e "${BLUE}Starting server at port 9080${NC}\n"
 	@poetry run scrapyrt
 
 clean:
-	@echo "${BLUE}Removing logs and tmp files...${NC}\n"
+	@echo -e "${BLUE}Removing logs and tmp files...${NC}\n"
 	@rm -rf logs
 
 .PHONY: help init lint serve clean
