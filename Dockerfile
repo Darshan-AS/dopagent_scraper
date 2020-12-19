@@ -49,7 +49,7 @@ ENV PATH /.venv/bin:$PATH
 COPY . .
 
 # Run the application
-ENTRYPOINT ["scrapyrt"]
+CMD ["scrapyrt", "-i", "0.0.0.0"]
 EXPOSE 9080
 
 
@@ -69,4 +69,5 @@ COPY . .
 
 # Run the application
 ENTRYPOINT ["scrapyrt"]
+CMD ["-i", "0.0.0.0"]
 EXPOSE 9080
