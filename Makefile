@@ -27,7 +27,7 @@ Build system for ${BLUE}dopagent_scraper${RESET}
 
 ${BOLD}Commands${RESET}:
   ${COLOR}init${RESET}		Install Python dependencies with poetry
-  ${COLOR}format${RESET}		Format code
+  ${COLOR}format${RESET}	Format code
   ${COLOR}lint${RESET}		Run linters
   ${COLOR}run${RESET}		Run app in dev environment
   ${COLOR}clean${RESET}		Remove logs, cache and tmp files
