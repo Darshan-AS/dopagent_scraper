@@ -59,7 +59,7 @@ lint:
 run:
 	@echo "${COLOR}Starting server...${RESET}"
 	@echo "or Skynet... You never know!"
-	@poetry run scrapyrt
+	@poetry run scrapyrt -i 0.0.0.0
 
 clean:
 	@echo "${COLOR}Removing pycache...${RESET}"
