@@ -14,6 +14,7 @@ class AuthTokenLoader(ItemLoader):
 
     first_name_in = MapCompose(str.strip, str.title)
     last_name_in = MapCompose(str.strip, str.title)
+    agent_id_in = MapCompose(str.strip)
     referer_header_in = Identity()
 
     default_output_processor = TakeFirst()
