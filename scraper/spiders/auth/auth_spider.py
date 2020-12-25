@@ -37,4 +37,4 @@ class AuthSpider(Spider):
 
     @validate_response
     def after_accounts_navigation(self, response):
-        yield utils.extract_auth_token_item(response)
+        yield utils.extract_auth_token_item(response, self.agent_id)
