@@ -8,6 +8,9 @@ services:
         build:
             context: .
             target: dev
+        environment:
+            APP_HOST: 0.0.0.0
+            APP_PORT: 9080
         ports:
             - 9080:9080
         working_dir: /dopagent_scraper
