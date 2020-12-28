@@ -39,7 +39,7 @@ ENV POETRY_VIRTUALENVS_IN_PROJECT=true \
 # Get poetry and install non dev project dependencies
 COPY pyproject.toml poetry.lock ./
 RUN pip install --upgrade pip \
-    && pip install poetry appdirs \
+    && pip install poetry \
     && poetry install --no-root --no-dev \
     && rm -rf pyproject.toml poetry.lock
 
@@ -70,7 +70,7 @@ EXPOSE 9080
 FROM base AS prod
 
 # Create and switch to a new user
-RUN useradd --create-home dopagent
+RUN useradd dopagent
 USER dopagent
 
 # Copy venv from build stage
