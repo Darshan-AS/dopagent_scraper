@@ -65,7 +65,7 @@ clean:
 	@echo "${COLOR}Removing pycache...${RESET}"
 	@find . -type d -name '__pycache__' -exec rm -rf {} +
 	@echo "${COLOR}Deleting logs...${RESET}"
-	@rm -rf logs accounts reports
+	@rm -rf logs
 	@echo "${COLOR}Cleaning up tmp files and cache...${RESET}"
 	@rm -rf logs accounts reports
 	@echo "${COLOR}Deleting Space...${RESET}"
