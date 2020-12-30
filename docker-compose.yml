@@ -3,7 +3,7 @@
 version: "3.8"
 
 services:
-    app:
+    scraper:
         container_name: dopagent_scraper_container
         build:
             context: .
