@@ -74,7 +74,7 @@ clean:
 	@echo "${COLOR}Deleting logs...${RESET}"
 	@rm -rf logs
 	@echo "${COLOR}Cleaning up tmp files and cache...${RESET}"
-	@rm -rf logs accounts reports
+	@rm -rf accounts reports
 	@echo "${COLOR}Deleting Space...${RESET}"
 	@echo "${COLOR}Deleting Time...${RESET}"
 	@echo "${COLOR}Deleting the Universe...${RESET}"
