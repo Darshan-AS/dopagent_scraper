@@ -37,9 +37,16 @@ export USAGE
 help:
 	@echo "$$USAGE"
 
+POETRY_VERSION := $(shell poetry --version 2>/dev/null)
+
 init:
-	@echo "${COLOR}Installing poetry...${RESET}"
+ifdef POETRY_VERSION
+	@echo "${COLOR}Poetry found. Using the same${RESET}"
+else
+	@echo "${COLOR}Poetry not found. Installing poetry...${RESET}"
 	@pip install poetry
+endif
+
 	@echo "${COLOR}Installing dependencies using poetry...${RESET}"
 	@poetry install --no-root
 
