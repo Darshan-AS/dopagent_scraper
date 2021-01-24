@@ -6,10 +6,6 @@ from scraper.items import ReferenceTokenItem
 from scraper.loaders import ReferenceTokenLoader
 
 
-def stringify(account_numbers):
-    return ",\n".join(map(str.strip, account_numbers))
-
-
 def select_pay_mode_and_accounts(response, pay_mode):
     checkboxes = response.css(SELECT.ACCOUNTS_LIST__CHECKBOXES)
     form_data = {

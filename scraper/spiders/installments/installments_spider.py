@@ -4,7 +4,7 @@ from scrapy import FormRequest, Spider
 
 import scraper.constants as CONST
 import scraper.spiders.installments.utils as utils
-from scraper.spiders.utils import fetch_total_accounts
+from scraper.spiders.utils import fetch_total_accounts, stringify
 from scraper.utils import validate_response
 
 
@@ -35,7 +35,7 @@ class InstallmentsSpider(Spider):
         return FormRequest.from_response(
             response,
             formdata={
-                CONST.AccountsListPage.ACCOUNT_NUMBER_SEARCH_BOX: utils.stringify(
+                CONST.AccountsListPage.ACCOUNT_NUMBER_SEARCH_BOX: stringify(
                     self.account_installment_dict.keys()
                 )
             },

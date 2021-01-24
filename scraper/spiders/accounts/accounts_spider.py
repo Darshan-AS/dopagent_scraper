@@ -3,7 +3,7 @@ from scrapy import FormRequest, Spider
 import scraper.constants as CONST
 import scraper.spiders.accounts.selectors as SELECT
 import scraper.spiders.accounts.utils as utils
-from scraper.spiders.utils import fetch_total_accounts
+from scraper.spiders.utils import fetch_total_accounts, stringify
 from scraper.utils import validate_response
 
 
@@ -15,14 +15,32 @@ class AccountsSpider(Spider):
         'LOG_ENABLED': True,
     }
 
-    def __init__(self, *args, account_counter=1, **kwargs):
+    def __init__(self, *args, account_counter=1, accounts=None, **kwargs):
         super().__init__(*args, **kwargs)
 
+        self.accounts = accounts
         self.account_counter = account_counter
 
     # pylint: disable=arguments-differ
     @validate_response
-    def parse(self, response, page_number=1, account_counter=None):
+    def parse(self, response, **kwargs):
+        if not self.accounts:
+            yield from self.fetch_accounts(response)
+            return
+
+        yield FormRequest.from_response(
+            response,
+            formdata={
+                CONST.AccountsListPage.ACCOUNT_NUMBER_SEARCH_BOX: stringify(
+                    self.accounts
+                )
+            },
+            clickdata={"name": CONST.AccountsListPage.FETCH_ACCOUNT_BUTTON},
+            callback=self.fetch_accounts,
+        )
+
+    @validate_response
+    def fetch_accounts(self, response, page_number=1, account_counter=None):
         total_accounts = fetch_total_accounts(response)
         account_counter = account_counter if account_counter else self.account_counter
 
@@ -32,7 +50,7 @@ class AccountsSpider(Spider):
         page, index = utils.account_counter_to_page_index(account_counter)
         if page_number != page:
             yield self.goto_page_number_request(
-                response, page, account_counter, self.parse
+                response, page, account_counter, self.fetch_accounts
             )
         else:
             all_accounts = response.css(SELECT.ACCOUNTS_LIST__HREF).getall()
@@ -53,7 +71,7 @@ class AccountsSpider(Spider):
         yield FormRequest.from_response(
             response,
             clickdata={'name': CONST.AccountDetailPage.BACK_BUTTON},
-            callback=self.parse,
+            callback=self.fetch_accounts,
             cb_kwargs=kwargs,
         )
 
