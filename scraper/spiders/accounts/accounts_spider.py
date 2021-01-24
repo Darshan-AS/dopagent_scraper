@@ -8,11 +8,11 @@ from scraper.utils import validate_response
 
 
 class AccountsSpider(Spider):
-    name = 'accounts'
+    name = "accounts"
 
     custom_settings = {
-        'ITEM_PIPELINES': {'scraper.pipelines.AccountPipeline': 0},
-        'LOG_ENABLED': True,
+        "ITEM_PIPELINES": {"scraper.pipelines.AccountPipeline": 0},
+        "LOG_ENABLED": True,
     }
 
     def __init__(self, *args, account_counter=1, account_numbers=None, **kwargs):
@@ -40,7 +40,9 @@ class AccountsSpider(Spider):
         )
 
     @validate_response
-    def after_fetch_accounts_navigation(self, response, page_number=1, account_counter=None):
+    def after_fetch_accounts_navigation(
+        self, response, page_number=1, account_counter=None
+    ):
         total_accounts = fetch_total_accounts(response)
         account_counter = account_counter if account_counter else self.account_counter
 
@@ -62,7 +64,7 @@ class AccountsSpider(Spider):
                     account_counter,
                     self.after_account_details_navigation,
                 )
-                print(f'Scraped account {account_counter}')
+                print(f"Scraped account {account_counter}")
 
     @validate_response
     def after_account_details_navigation(self, response, **kwargs):
@@ -70,7 +72,7 @@ class AccountsSpider(Spider):
 
         yield FormRequest.from_response(
             response,
-            clickdata={'name': CONST.AccountDetailPage.BACK_BUTTON},
+            clickdata={"name": CONST.AccountDetailPage.BACK_BUTTON},
             callback=self.after_fetch_accounts_navigation,
             cb_kwargs=kwargs,
         )
@@ -81,9 +83,9 @@ class AccountsSpider(Spider):
         return FormRequest.from_response(
             response,
             formdata={CONST.AccountsListPage.GOTO_PAGE_NUMBER_INPUT: str(page_number)},
-            clickdata={'name': CONST.AccountsListPage.GOTO_PAGE_BUTTON},
+            clickdata={"name": CONST.AccountsListPage.GOTO_PAGE_BUTTON},
             callback=callback,
-            cb_kwargs={'page_number': page_number, "account_counter": account_counter},
+            cb_kwargs={"page_number": page_number, "account_counter": account_counter},
         )
 
     def goto_account_detail_request(
@@ -93,7 +95,7 @@ class AccountsSpider(Spider):
             account_link,
             callback=callback,
             cb_kwargs={
-                'page_number': page_number,
+                "page_number": page_number,
                 "account_counter": account_counter + 1,
             },
         )

@@ -9,7 +9,7 @@ from scraper.items import ReportItem
 
 # pylint: disable=attribute-defined-outside-init
 class ReportPipeline:
-    REPORTS_DIR = "reports"
+    REPORTS_DIR = "report_logs"
 
     def open_spider(self, spider):
         file_name = (

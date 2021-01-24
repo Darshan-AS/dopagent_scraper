@@ -15,13 +15,13 @@ class ReportType(Enum):
 
 
 class ReportsSpider(Spider):
-    name = 'reports'
+    name = "reports"
 
     custom_settings = {
-        'ITEM_PIPELINES': {
-            'scraper.pipelines.ReportPipeline': 0,
+        "ITEM_PIPELINES": {
+            "scraper.pipelines.ReportPipeline": 0,
         },
-        'LOG_ENABLED': True,
+        "LOG_ENABLED": True,
     }
 
     def __init__(
@@ -86,11 +86,11 @@ class ReportsSpider(Spider):
         return FormRequest.from_response(
             response,
             formdata={CONST.ReportsPage.GOTO_PAGE_NUMBER_INPUT: str(page_number)},
-            clickdata={'name': CONST.ReportsPage.GOTO_PAGE_BUTTON},
+            clickdata={"name": CONST.ReportsPage.GOTO_PAGE_BUTTON},
             callback=callback,
             cb_kwargs={
-                'page_number': page_number,
-                'transaction_selectors': transaction_selectors,
+                "page_number": page_number,
+                "transaction_selectors": transaction_selectors,
             },
         )
 
@@ -100,7 +100,7 @@ class ReportsSpider(Spider):
         return FormRequest.from_response(
             response,
             formdata={CONST.ReportsPage.DOWNLOAD_FORMAT_SELECT: download_format},
-            clickdata={'name': CONST.ReportsPage.DOWNLOAD_REPORT_BUTTON},
+            clickdata={"name": CONST.ReportsPage.DOWNLOAD_REPORT_BUTTON},
             callback=callback,
-            cb_kwargs={'transaction_selectors': transaction_selectors},
+            cb_kwargs={"transaction_selectors": transaction_selectors},
         )

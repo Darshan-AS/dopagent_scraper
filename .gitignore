@@ -3,6 +3,6 @@
 logs
 __pycache__
 .DS_Store
-accounts
-reports
+account_logs
+report_logs
 .idea

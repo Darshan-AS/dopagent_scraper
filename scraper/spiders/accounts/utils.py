@@ -20,50 +20,50 @@ def extract_account_item(response):
 
     account_loader = AccountLoader(item=AccountItem(), response=response)
     account_loader.add_css(
-        'account_no',
+        "account_no",
         get_css(CONST.AccountDetailPage.ACCOUNT_NUMBER_ID),
     )
     account_loader.add_css(
-        'name',
+        "name",
         get_css(CONST.AccountDetailPage.NAME_ID),
     )
     account_loader.add_css(
-        'opening_date',
+        "opening_date",
         get_css(CONST.AccountDetailPage.OPENING_DATE_ID),
     )
     account_loader.add_css(
-        'denomination',
+        "denomination",
         get_css(CONST.AccountDetailPage.DENOMINATION_ID),
     )
     account_loader.add_css(
-        'total_deposit_amount',
+        "total_deposit_amount",
         get_css(CONST.AccountDetailPage.TOTAL_DESPOSIT_AMOUNT_ID),
     )
     account_loader.add_css(
-        'month_paid_upto',
+        "month_paid_upto",
         get_css(CONST.AccountDetailPage.MONTH_PAID_UPTO_ID),
     )
     account_loader.add_css(
-        'next_installment_due_date',
+        "next_installment_due_date",
         get_css(CONST.AccountDetailPage.NEXT_INSTALLMENT_DATE_ID),
     )
     account_loader.add_css(
-        'date_of_last_deposit',
+        "date_of_last_deposit",
         get_css(CONST.AccountDetailPage.LAST_DEPOSIT_DATE_ID),
     )
     account_loader.add_css(
-        'rebate_paid',
+        "rebate_paid",
         get_css(CONST.AccountDetailPage.REBATE_ID),
     )
     account_loader.add_css(
-        'default_fee', get_css(CONST.AccountDetailPage.DEFAULT_FEE_ID)
+        "default_fee", get_css(CONST.AccountDetailPage.DEFAULT_FEE_ID)
     )
     account_loader.add_css(
-        'default_installments',
+        "default_installments",
         get_css(CONST.AccountDetailPage.DEFAULT_INSTALLMENT_ID),
     )
     account_loader.add_css(
-        'pending_installments',
+        "pending_installments",
         get_css(CONST.AccountDetailPage.PENDING_INSTALLMENT_ID),
     )
     return account_loader.load_item()
