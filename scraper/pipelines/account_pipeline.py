@@ -8,7 +8,7 @@ from scraper.items import AccountItem
 
 # pylint: disable=attribute-defined-outside-init
 class AccountPipeline:
-    ACCOUNTS_DIR = "accounts"
+    ACCOUNTS_DIR = "account_logs"
 
     def open_spider(self, spider):
         file_name = spider.agent_id if hasattr(spider, "agent_id") else "common"
