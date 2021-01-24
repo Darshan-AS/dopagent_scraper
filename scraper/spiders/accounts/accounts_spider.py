@@ -15,32 +15,32 @@ class AccountsSpider(Spider):
         'LOG_ENABLED': True,
     }
 
-    def __init__(self, *args, account_counter=1, accounts=None, **kwargs):
+    def __init__(self, *args, account_counter=1, account_numbers=None, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.accounts = accounts
+        self.account_numbers = account_numbers
         self.account_counter = account_counter
 
     # pylint: disable=arguments-differ
     @validate_response
     def parse(self, response, **kwargs):
-        if not self.accounts:
-            yield from self.fetch_accounts(response)
+        if not self.account_numbers:
+            yield from self.after_fetch_accounts_navigation(response)
             return
 
         yield FormRequest.from_response(
             response,
             formdata={
                 CONST.AccountsListPage.ACCOUNT_NUMBER_SEARCH_BOX: stringify(
-                    self.accounts
+                    self.account_numbers
                 )
             },
             clickdata={"name": CONST.AccountsListPage.FETCH_ACCOUNT_BUTTON},
-            callback=self.fetch_accounts,
+            callback=self.after_fetch_accounts_navigation,
         )
 
     @validate_response
-    def fetch_accounts(self, response, page_number=1, account_counter=None):
+    def after_fetch_accounts_navigation(self, response, page_number=1, account_counter=None):
         total_accounts = fetch_total_accounts(response)
         account_counter = account_counter if account_counter else self.account_counter
 
@@ -50,7 +50,7 @@ class AccountsSpider(Spider):
         page, index = utils.account_counter_to_page_index(account_counter)
         if page_number != page:
             yield self.goto_page_number_request(
-                response, page, account_counter, self.fetch_accounts
+                response, page, account_counter, self.after_fetch_accounts_navigation
             )
         else:
             all_accounts = response.css(SELECT.ACCOUNTS_LIST__HREF).getall()
@@ -71,7 +71,7 @@ class AccountsSpider(Spider):
         yield FormRequest.from_response(
             response,
             clickdata={'name': CONST.AccountDetailPage.BACK_BUTTON},
-            callback=self.fetch_accounts,
+            callback=self.after_fetch_accounts_navigation,
             cb_kwargs=kwargs,
         )
 
