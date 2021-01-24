@@ -37,9 +37,16 @@ export USAGE
 help:
 	@echo "$$USAGE"
 
+POETRY_VERSION := $(shell poetry --version 2>/dev/null)
+
 init:
-	@echo "${COLOR}Installing poetry...${RESET}"
+ifdef POETRY_VERSION
+	@echo "${COLOR}Poetry found. Using the same${RESET}"
+else
+	@echo "${COLOR}Poetry not found. Installing poetry...${RESET}"
 	@pip install poetry
+endif
+
 	@echo "${COLOR}Installing dependencies using poetry...${RESET}"
 	@poetry install --no-root
 
@@ -65,9 +72,9 @@ clean:
 	@echo "${COLOR}Removing pycache...${RESET}"
 	@find . -type d -name '__pycache__' -exec rm -rf {} +
 	@echo "${COLOR}Deleting logs...${RESET}"
-	@rm -rf logs accounts reports
+	@rm -rf logs
 	@echo "${COLOR}Cleaning up tmp files and cache...${RESET}"
-	@rm -rf logs accounts reports
+	@rm -rf accounts reports
 	@echo "${COLOR}Deleting Space...${RESET}"
 	@echo "${COLOR}Deleting Time...${RESET}"
 	@echo "${COLOR}Deleting the Universe...${RESET}"
