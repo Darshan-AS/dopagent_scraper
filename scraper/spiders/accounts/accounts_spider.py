@@ -23,7 +23,7 @@ class AccountsSpider(Spider):
 
     # pylint: disable=arguments-differ
     @validate_response
-    def parse(self, response, **kwargs):
+    def parse(self, response):
         if not self.account_numbers:
             yield from self.after_fetch_accounts_navigation(response)
             return
