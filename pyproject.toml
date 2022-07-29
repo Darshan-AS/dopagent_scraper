@@ -6,7 +6,7 @@ authors = ["Darshan A S <itisdarshan@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
-Scrapy = "^2.4.1"
+Scrapy = "^2.6.2"
 scrapyrt = {git = "https://github.com/scrapinghub/scrapyrt.git", rev = "pass-arguments-to-spider"}
 
 [tool.poetry.dev-dependencies]
