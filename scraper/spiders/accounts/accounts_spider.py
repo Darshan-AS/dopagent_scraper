@@ -1,4 +1,4 @@
-from scrapy import FormRequest, Spider
+from scrapy import FormRequest, Spider, Request
 
 import scraper.constants as CONST
 import scraper.spiders.accounts.selectors as SELECT
@@ -15,11 +15,22 @@ class AccountsSpider(Spider):
         "LOG_ENABLED": True,
     }
 
-    def __init__(self, *args, account_counter=1, account_numbers=None, **kwargs):
+    def __init__(self, *args, url=None, referer=None, account_counter=1, account_numbers=None, **kwargs):
         super().__init__(*args, **kwargs)
 
+        if url:
+            self.start_urls = [url]
+
+        self.referer = referer
         self.account_numbers = account_numbers
         self.account_counter = account_counter
+
+    def start_requests(self):
+        for url in self.start_urls:
+            headers = {}
+            if self.referer:
+                headers["Referer"] = self.referer
+            yield Request(url, headers=headers, callback=self.parse)
 
     # pylint: disable=arguments-differ
     @validate_response

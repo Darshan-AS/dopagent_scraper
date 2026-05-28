@@ -1,7 +1,7 @@
 # flake8: noqa
 # pylint: disable=line-too-long, too-few-public-methods
-DOPAGENT_HOST = "https://dopagent.indiapost.gov.in/"
-DOPAGENT_BASE_URL = DOPAGENT_HOST + "corp/"
+DOPAGENT_HOST = "https://dopagent.indiapost.gov.in"
+DOPAGENT_BASE_URL = DOPAGENT_HOST + "/corp/"
 ACCOUNTS_PER_PAGE = 10
 SUCCESS_RESPONSE_STATUS = 200
 
@@ -14,8 +14,10 @@ class Headers:
 class LoginPage:
     AGENT_ID_INPUT = "AuthenticationFG.USER_PRINCIPAL"
     PASSWORD_INPUT = "AuthenticationFG.ACCESS_CODE"
+    VERIFICATION_CODE_INPUT = "AuthenticationFG.VERIFICATION_CODE"
     LOG_IN_BUTTON = "Action.VALIDATE_RM_PLUS_CREDENTIALS_CATCHA_DISABLED"
     CLEAR_VALUES_BUTTON = "Action.CLEAR_VALUES"
+    CAPTCHA_IMAGE_ID = "IMAGECAPTCHA"
 
 
 class MenuPage:
@@ -54,6 +56,7 @@ class AccountsListPage:
 
     SAVE_ACCOUNTS_BUTTON = "Action.SAVE_ACCOUNTS"
     VIEW_SAVED_INSTALLMENTS_BUTTON = "Action.VIEW_SAVED_INSTALLMENTS"
+    FETCH_MORE_ACCOUNTS_BUTTON = "Action.NEXT_ACCOUNTS"
 
 
 class AccountDetailPage:

@@ -25,9 +25,12 @@ class ReportsSpider(Spider):
     }
 
     def __init__(
-        self, reference_number, *args, report_type=ReportType.PDF.name, **kwargs
+        self, reference_number, *args, url=None, report_type=ReportType.PDF.name, **kwargs
     ):
         super().__init__(*args, **kwargs)
+
+        if url:
+            self.start_urls = [url]
 
         self.reference_number = reference_number
         self.report_type = ReportType[report_type]

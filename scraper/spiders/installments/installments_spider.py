@@ -17,8 +17,11 @@ class PayMode(Enum):
 class InstallmentsSpider(Spider):
     name = "installments"
 
-    def __init__(self, accounts, *args, pay_mode=PayMode.CASH.name, **kwargs):
+    def __init__(self, accounts, *args, url=None, pay_mode=PayMode.CASH.name, **kwargs):
         super().__init__(*args, **kwargs)
+
+        if url:
+            self.start_urls = [url]
 
         self.pay_mode = PayMode[pay_mode]
         self.accounts = accounts
