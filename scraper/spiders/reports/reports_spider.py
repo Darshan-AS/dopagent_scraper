@@ -35,9 +35,8 @@ class ReportsSpider(Spider):
         self.reference_number = reference_number
         self.report_type = ReportType[report_type]
 
-    # pylint: disable=arguments-differ
     @validate_response
-    def parse(self, response):
+    def parse(self, response, **kwargs):
         if not self.reference_number:
             return
 

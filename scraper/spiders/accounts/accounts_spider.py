@@ -33,9 +33,8 @@ class AccountsSpider(Spider):
                 headers["Referer"] = self.referer
             yield Request(url, headers=headers, callback=self.parse)
 
-    # pylint: disable=arguments-differ
     @validate_response
-    def parse(self, response):
+    def parse(self, response, **kwargs):
         # Check if we are already on the accounts list page
         if response.css(f"table#{CONST.AccountsListPage.ACCOUNTS_LIST_TABLE_ID}"):
             self.logger.info("On accounts list page.")

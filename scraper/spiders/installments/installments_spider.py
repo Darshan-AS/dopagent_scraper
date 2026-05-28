@@ -22,9 +22,8 @@ class InstallmentsSpider(Spider):
             a["account_no"]: a["no_of_installments"] for a in self.accounts
         }
 
-    # pylint: disable=arguments-differ
     @validate_response
-    def parse(self, response):
+    def parse(self, response, **kwargs):
         if not self.accounts:
             return
 

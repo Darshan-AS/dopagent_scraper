@@ -1,16 +1,16 @@
+import os
+import webbrowser
+
 import scraper.spiders.auth.selectors as SELECT
 from scraper.items import AuthTokenItem
 from scraper.loaders import AuthTokenLoader
-
-import os
-import webbrowser
 
 
 def resolve_manual_captcha(image_bytes, logger):
     captcha_path = "captcha.png"
 
-    with open(captcha_path, "wb") as f:
-        f.write(image_bytes)
+    with open(captcha_path, "wb") as captcha_file:
+        captcha_file.write(image_bytes)
 
     abs_path = os.path.abspath(captcha_path)
     logger.info(f"CAPTCHA image saved to {abs_path}")

@@ -20,8 +20,7 @@ class AuthSpider(Spider):
         self.agent_id = agent_id
         self.password = password
 
-    # pylint: disable=arguments-differ
-    def parse(self, response):
+    def parse(self, response, **kwargs):
         captcha_src = response.css(
             f"img#{CONST.LoginPage.CAPTCHA_IMAGE_ID}::attr(src)"
         ).get()

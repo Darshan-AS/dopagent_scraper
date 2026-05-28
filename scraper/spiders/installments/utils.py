@@ -23,7 +23,8 @@ def build_goto_page_form_data(selected_data, page_number):
 
 def extract_reference_token_item(response):
     message = response.css(SELECT.MESSAGE__DIV).get()
-    reference_number = re.search("C\\d+", message).group()
+    match = re.search("C\\d+", message)
+    reference_number = match.group() if match else None
 
     reference_token_loader = ReferenceTokenLoader(
         item=ReferenceTokenItem(), response=response
