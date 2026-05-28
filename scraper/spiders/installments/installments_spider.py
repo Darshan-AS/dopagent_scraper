@@ -1,17 +1,10 @@
-from enum import Enum
-
 from scrapy import FormRequest, Spider
 
 import scraper.constants as CONST
+from scraper.constants import PayMode
 import scraper.spiders.installments.utils as utils
 from scraper.spiders.utils import fetch_total_accounts, stringify
 from scraper.utils import validate_response
-
-
-class PayMode(Enum):
-    CASH = CONST.AccountsListPage.PAY_MODE_VALUE_CASH
-    DOP_CHEQUE = CONST.AccountsListPage.PAY_MODE_VALUE_DOP_CHEQUE
-    NON_DOP_CHEQUE = CONST.AccountsListPage.PAY_MODE_VALUE_NON_DOP_CHEQUE
 
 
 class InstallmentsSpider(Spider):
@@ -71,20 +64,23 @@ class InstallmentsSpider(Spider):
     ):
         account_nos = utils.extract_installment_account_nos(response)
         modified = modified if modified is not None else set()
-        for index, account_no in enumerate(account_nos):
-            if (
-                no_of_installment := self.account_installment_dict[account_no]
-            ) > 1 and account_no not in modified:
-                yield self.update_no_of_installments_request(
-                    response,
-                    index,
-                    account_no,
-                    no_of_installment,
-                    page_number,
-                    modified,
-                    self.after_save_installments_navigation,
-                )
-                return
+
+        next_account = utils.get_next_account_to_update(
+            account_nos, self.account_installment_dict, modified
+        )
+
+        if next_account:
+            index, account_no, no_of_installment = next_account
+            yield self.update_no_of_installments_request(
+                response,
+                index,
+                account_no,
+                no_of_installment,
+                page_number,
+                modified,
+                self.after_save_installments_navigation,
+            )
+            return
 
         total_accounts = fetch_total_accounts(response)
         if total_accounts > page_number * CONST.ACCOUNTS_PER_PAGE:
@@ -103,11 +99,11 @@ class InstallmentsSpider(Spider):
     def goto_accounts_list_page_number_request(
         self, response, page_number, selected_data, callback
     ):
-        selected_data[CONST.AccountsListPage.GOTO_PAGE_NUMBER_INPUT] = str(page_number)
+        form_data = utils.build_goto_page_form_data(selected_data, page_number)
 
         return FormRequest.from_response(
             response,
-            formdata=selected_data,
+            formdata=form_data,
             clickdata={"name": CONST.AccountsListPage.GOTO_PAGE_BUTTON},
             callback=callback,
             cb_kwargs={"page_number": page_number},

@@ -2,6 +2,28 @@ import scraper.spiders.auth.selectors as SELECT
 from scraper.items import AuthTokenItem
 from scraper.loaders import AuthTokenLoader
 
+import os
+import webbrowser
+
+
+def resolve_manual_captcha(image_bytes, logger):
+    captcha_path = "captcha.png"
+
+    with open(captcha_path, "wb") as f:
+        f.write(image_bytes)
+
+    abs_path = os.path.abspath(captcha_path)
+    logger.info(f"CAPTCHA image saved to {abs_path}")
+
+    # Attempt to open the image automatically
+    try:
+        webbrowser.open(f"file://{abs_path}")
+    except Exception:
+        logger.warning("Could not open browser automatically.")
+
+    captcha_code = input("Please enter the CAPTCHA code seen in the image: ")
+    return captcha_code
+
 
 def extract_auth_token_item(response, agent_id):
     auth_token_loader = AuthTokenLoader(item=AuthTokenItem(), response=response)

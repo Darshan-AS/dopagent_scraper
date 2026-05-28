@@ -1,5 +1,7 @@
 # flake8: noqa
 # pylint: disable=line-too-long, too-few-public-methods
+from enum import Enum
+
 DOPAGENT_HOST = "https://dopagent.indiapost.gov.in"
 DOPAGENT_BASE_URL = DOPAGENT_HOST + "/corp/"
 ACCOUNTS_PER_PAGE = 10
@@ -145,3 +147,9 @@ class ReportsPage:
     DOWNLOAD_FORMAT_SELECT_VALUE_XLS = "4"
 
     DOWNLOAD_REPORT_BUTTON = "Action.GENERATE_REPORT"
+
+
+class PayMode(Enum):
+    CASH = AccountsListPage.PAY_MODE_VALUE_CASH
+    DOP_CHEQUE = AccountsListPage.PAY_MODE_VALUE_DOP_CHEQUE
+    NON_DOP_CHEQUE = AccountsListPage.PAY_MODE_VALUE_NON_DOP_CHEQUE
