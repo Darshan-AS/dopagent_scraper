@@ -29,7 +29,10 @@ ${BOLD}Commands${RESET}:
   ${COLOR}init${RESET}		Install Python dependencies with poetry
   ${COLOR}format${RESET}	Format code
   ${COLOR}lint${RESET}		Run linters
-  ${COLOR}run${RESET}		Run app in dev environment
+  ${COLOR}run${RESET}		Run app in dev environment (local)
+  ${COLOR}up${RESET}		Run app in dev environment (docker)
+  ${COLOR}down${RESET}		Stop docker environment
+  ${COLOR}build${RESET}		Build docker image
   ${COLOR}clean${RESET}		Remove logs, cache and tmp files
 endef
 
@@ -68,6 +71,18 @@ run:
 	@echo "or Skynet... You never know!"
 	@poetry run scrapyrt -i 0.0.0.0
 
+up:
+	@echo "${COLOR}Starting server in Docker...${RESET}"
+	@docker compose up --build
+
+down:
+	@echo "${COLOR}Stopping Docker containers...${RESET}"
+	@docker compose down
+
+build:
+	@echo "${COLOR}Building Docker image...${RESET}"
+	@docker compose build
+
 clean:
 	@echo "${COLOR}Removing pycache...${RESET}"
 	@find . -type d -name '__pycache__' -exec rm -rf {} +
@@ -80,4 +95,4 @@ clean:
 	@echo "${COLOR}Deleting the Universe...${RESET}"
 	@echo "Cleaned!"
 
-.PHONY: help init format lint run clean
+.PHONY: help init format lint run up down build clean

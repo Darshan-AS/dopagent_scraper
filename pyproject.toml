@@ -3,11 +3,17 @@ name = "dopagent_scraper"
 version = "0.1.0"
 description = ""
 authors = ["Darshan A S <itisdarshan@gmail.com>"]
+packages = [{ include = "scraper" }]
 
 [tool.poetry.dependencies]
 python = "^3.9"
+# setuptools < 58 is required for legacy demjson build
+setuptools = "<58.0.0"
+typing-extensions = ">=4.0.0"
+# demjson 2.2.4 is a legacy package required by scrapyrt
+demjson = "2.2.4"
 Scrapy = "^2.4.1"
-scrapyrt = {git = "https://github.com/scrapinghub/scrapyrt.git", rev = "pass-arguments-to-spider"}
+scrapyrt = { git = "https://github.com/scrapinghub/scrapyrt.git", rev = "pass-arguments-to-spider" }
 
 [tool.poetry.dev-dependencies]
 pep8 = "^1.7.1"

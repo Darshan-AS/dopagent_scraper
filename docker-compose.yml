@@ -1,7 +1,5 @@
 # @format
 
-version: "3.8"
-
 services:
     scraper:
         container_name: dopagent_scraper_container
@@ -16,3 +14,4 @@ services:
         working_dir: /dopagent_scraper
         volumes:
             - ./:/dopagent_scraper
+            - /dopagent_scraper/.venv

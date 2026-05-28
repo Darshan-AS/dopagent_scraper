@@ -29,22 +29,34 @@ FROM base AS build
 RUN apt-get update && apt-get install -y \
     gcc \
     git \
+    make \
+    curl \
     && rm -rf /var/lib/apt/lists/*
+
+WORKDIR ${WORKING_PATH}
 
 # Tell poetry to create venv in current directory and turn off UI
 ENV POETRY_VIRTUALENVS_IN_PROJECT=true \
     POETRY_NO_INTERACTION=1 \
     POETRY_NO_ANSI=1
 
-# Get poetry and install non dev project dependencies
-COPY pyproject.toml poetry.lock ./
+# Install poetry and build dependencies
 RUN pip install --upgrade pip \
-    && pip install poetry \
-    && poetry install --no-root --no-dev \
-    && rm -rf pyproject.toml poetry.lock
+    && pip install "setuptools<58.0.0" "poetry<2.0.0" "wheel"
+
+# Copy dependency files
+COPY pyproject.toml poetry.lock ./
+
+# Install dependencies
+# We use a multi-step install to handle the legacy demjson package which requires 
+# --no-build-isolation and a legacy setuptools version.
+RUN poetry env use python \
+    && poetry run pip install "setuptools<58.0.0" "wheel" \
+    && poetry run pip install demjson==2.2.4 --no-build-isolation \
+    && poetry install --no-root --no-dev
 
 # Add venv to path
-ENV PATH /.venv/bin:$PATH
+ENV PATH ${WORKING_PATH}/.venv/bin:$PATH
 
 
 FROM build as dev
@@ -52,11 +64,7 @@ FROM build as dev
 # Set default working directory
 WORKDIR ${WORKING_PATH}
 
-# Tell poetry to skip creating venv (reuses venv from build target)
-ENV POETRY_VIRTUALENVS_CREATE=false
-
 # Install project dependencies including dev
-COPY pyproject.toml poetry.lock ./
 RUN poetry install --no-root
 
 # Copy application into container. This is just a fallback. Use volumes to mount the source code
@@ -74,8 +82,8 @@ RUN useradd dopagent
 USER dopagent
 
 # Copy venv from build stage
-COPY --from=build .venv .venv
-ENV PATH /.venv/bin:$PATH
+COPY --from=build ${WORKING_PATH}/.venv ${WORKING_PATH}/.venv
+ENV PATH ${WORKING_PATH}/.venv/bin:$PATH
 
 # Set default working directory
 WORKDIR ${WORKING_PATH}
